@@ -19,6 +19,8 @@ import Pomodoro from "./Clock";
 import Logout from "./Logout";
 import Leaderboard from "./Leaderboard";
 import Analytics from "./Analytics";
+import TokenPage from "../settings/page";
+import ActivityPage from "../activity/page";
 
 function Dashboard() {
     const[page,setPage]=useState("clock")
@@ -35,7 +37,7 @@ function Dashboard() {
                   <SidebarMenuItem>
                     <SidebarMenuButton
                     onClick={()=>setPage("clock")}>
-                      Clock
+                      Timer
                     </SidebarMenuButton>
                   </SidebarMenuItem>
 
@@ -48,6 +50,17 @@ function Dashboard() {
                   <SidebarMenuItem>
                     <SidebarMenuButton onClick={()=>setPage("leaderboard")}>
                       Leaderboard
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton onClick={()=>setPage("Activity")}>
+                      Your Activity
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  
+                  <SidebarMenuItem>
+                    <SidebarMenuButton onClick={()=>setPage("Settings")}>
+                      Settings
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   
@@ -68,6 +81,8 @@ function Dashboard() {
             {page=="clock" && <Pomodoro></Pomodoro>}
             {page=="Analytics" && <Analytics></Analytics>}
             {page=="leaderboard" &&<div><Leaderboard></Leaderboard></div>}
+            {page=="Settings" &&<div><TokenPage></TokenPage></div>}
+            {page=="Activity" &&<div><ActivityPage></ActivityPage></div>}
           </div>
         </main>
       </div>
