@@ -115,10 +115,10 @@ export default function Pomodoro() {
   }
 
   return (
-    <div className="flex flex-col  h-[400px]   items-center mx-auto justify-center gap-8">
+    <div className="flex flex-col  h-[400px]    items-center mx-auto justify-center gap-8">
       
 
-      <div className="font-mono text-7xl font-semibold">
+      <div className="font-mono text-[#3B60C5] text-7xl font-semibold">
         {format(displayHours)}:
         {format(displayMinutes)}:
         {format(displaySeconds)}
@@ -165,13 +165,12 @@ export default function Pomodoro() {
 
         <button
           onClick={setTimer}
-          className="rounded-md bg-black px-4 py-2 text-white"
+          className="rounded-md cursor-pointer hover:bg-blue-500 bg-[#3B60C5] px-4 py-2 text-white"
         >
           Set
         </button>
       </div>
 
-      {/* Controls */}
 
       <div className="flex gap-3">
         <button
@@ -179,14 +178,14 @@ export default function Pomodoro() {
             setRunning((prev) => !prev)
           }
           disabled={timeLeft === 0}
-          className="rounded-md bg-black px-5 py-2 text-white disabled:opacity-50"
+          className="rounded-md bg-[#3B60C5]  px-5 py-2 hover:bg-blue-500 text-white disabled:opacity-50"
         >
           {running ? "Pause" : "Start"}
         </button>
 
         <button
           onClick={reset}
-          className="rounded-md border px-5 py-2"
+          className="rounded-md  bg-black text-white  cursor-pointer border px-5 py-2"
         >
           Reset
         </button>

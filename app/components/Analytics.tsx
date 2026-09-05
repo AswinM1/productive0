@@ -115,18 +115,18 @@ export default function Page() {
     }
 
     if (minutes < 30) {
-      return "bg-primary/25";
+      return "bg-[#3B60C5] /25";
     }
 
     if (minutes < 60) {
-      return "bg-primary/40";
+      return "bg-[#3B60C5]/40";
     }
 
     if (minutes < 120) {
-      return "bg-primary/60";
+      return "bg-[#3B60C5] /60";
     }
 
-    return "bg-primary";
+    return "bg-[#3B60C5] ";
   };
 
   return (
@@ -211,6 +211,7 @@ export default function Page() {
 
                       <Bar
                         dataKey="minutes"
+                        fill="#3B60C5"
                         radius={4}
                         barSize={30}
                       />
@@ -284,13 +285,13 @@ export default function Page() {
 
                       <div className="h-3 w-3 rounded-[3px] bg-muted" />
 
-                      <div className="h-3 w-3 rounded-[3px] bg-primary/25" />
+                      <div className="h-3 w-3 rounded-[3px] bg-[#3B60C5]/20" />
 
-                      <div className="h-3 w-3 rounded-[3px] bg-primary/40" />
+                      <div className="h-3 w-3 rounded-[3px] bg-[#3B60C5]/40 " />
 
-                      <div className="h-3 w-3 rounded-[3px] bg-primary/60" />
+                      <div className="h-3 w-3 rounded-[3px] bg-[#3B60C5]/60 " />
 
-                      <div className="h-3 w-3 rounded-[3px] bg-primary" />
+                      <div className="h-3 w-3 rounded-[3px] bg-[#3B60C5]" />
 
                       <span>More</span>
                     </div>

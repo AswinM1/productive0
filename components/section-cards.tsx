@@ -57,28 +57,28 @@ export function SectionCards() {
     <div className="grid grid-cols-1 gap-4 px-4 @xl/main:grid-cols-2 @5xl/main:grid-cols-4 lg:px-6">
       
       {/* Total Time */}
-      <Card className="@container/card">
+      <Card className="@container/card bg-[#3B60C5]  text-white">
         <CardHeader>
-          <CardDescription>Total Time</CardDescription>
+          <CardDescription className="text-white">Total Time</CardDescription>
 
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
             {loading ? "..." : `${totalMinutes}m`}
           </CardTitle>
 
-          <CardAction>
-            <Badge variant="outline">
-              <TrendingUpIcon />
+          <CardAction className="text-white">
+            <Badge variant="outline" className="text-white">
+              <TrendingUpIcon className="text-white" />
               Focus
             </Badge>
           </CardAction>
         </CardHeader>
 
-        <CardFooter className="flex-col items-start gap-1.5 text-sm">
-          <div className="line-clamp-1 flex gap-2 font-medium">
+        <CardFooter className="flex-col  items-start gap-1.5 text-sm">
+          <div className="line-clamp-1 flex gap-2 font-medium text-white">
             Total focus time
           </div>
 
-          <div className="text-muted-foreground">
+          <div className="text-neutral-200">
             All completed Pomodoros
           </div>
         </CardFooter>
@@ -94,7 +94,7 @@ export function SectionCards() {
           </CardTitle>
 
           <CardAction>
-            <Badge variant="outline">
+            <Badge variant="outline" className=" text-white bg-[#3B60C5] ">
               Today
             </Badge>
           </CardAction>
@@ -121,7 +121,7 @@ export function SectionCards() {
           </CardTitle>
 
           <CardAction>
-            <Badge variant="outline">
+            <Badge variant="outline" className="text-white bg-[#3B60C5]">
               Average
             </Badge>
           </CardAction>
@@ -149,7 +149,7 @@ export function SectionCards() {
           </CardTitle>
 
           <CardAction>
-            <Badge variant="outline">
+            <Badge variant="outline" className="text-white bg-[#3B60C5]"> 
               <FlameIcon />
               Streak
             </Badge>
