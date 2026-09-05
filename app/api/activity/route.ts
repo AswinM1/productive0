@@ -1,36 +1,61 @@
-// app/api/activity/route.ts
-
 import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]/route";
 import { prisma } from "@/lib/prisma";
 
-export async function POST(req: Request) {
+export async function GET() {
   try {
-    const body = await req.json();
+    const session = await getServerSession(authOptions);
 
-    const {
-      userId,
-      duration,
-      language,
-      startedAt,
-      endedAt,
-    } = body;
+    console.log("SESSION:", session);
 
-    const activity = await prisma.activity.create({
-      data: {
-        userId,
-        duration,
-        language,
-        startedAt: new Date(startedAt),
-        endedAt: new Date(endedAt),
+    if (!session?.user?.email) {
+      return NextResponse.json(
+        { error: "Unauthorized" },
+        { status: 401 }
+      );
+    }
+
+    const user = await prisma.user.findUnique({
+      where: {
+        email: session.user.email,
+      },
+      select: {
+        id: true,
       },
     });
 
-    return NextResponse.json(activity);
+    console.log("USER:", user);
+
+    if (!user) {
+      return NextResponse.json(
+        { error: "User not found" },
+        { status: 404 }
+      );
+    }
+
+    const activities = await prisma.activity.findMany({
+      where: {
+        userId: user.id,
+      },
+      orderBy: {
+        startedAt: "desc",
+      },
+    });
+
+    console.log("ACTIVITIES:", activities);
+
+    return NextResponse.json(activities);
   } catch (error) {
-    console.error("ACTIVITY_ERROR:", error);
+    console.error("ACTIVITY_GET_ERROR:", error);
 
     return NextResponse.json(
-      { error: "Failed to save activity" },
+      {
+        error:
+          error instanceof Error
+            ? error.message
+            : String(error),
+      },
       { status: 500 }
     );
   }
