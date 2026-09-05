@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const features = [
@@ -57,13 +58,13 @@ export default function Page() {
   };
 
   return (
-    <main className="min-h-screen bg-[#f5f5f7]   text-[#EDEAE2]">
+    <main className="min-h-screen bg-[#FDF2DE]   ">
       {/* NAVBAR */}
       <header className="sticky top-0 z-50 border-b  backdrop-blur-md">
         <div className="mx-auto flex max-w-[1180px] items-center justify-between px-6 py-[18px] md:px-8">
           {/* Logo */}
-          <div className="flex items-center gap-2 font-sans text-base text-[#41465d] cursor-pointer font-semibold">
-            <span className="h-2 w-2 text-[#41465d] animate-pulse rounded-full " />
+          <div className="flex items-center gap-2 font-sans font-black tracking-wide  text-black cursor-pointer">
+            <span className="h-2 w-2  text-black font-black animate-pulse rounded-full " />
              flowstate
           </div>
 
@@ -103,18 +104,18 @@ export default function Page() {
       <div className="mx-auto max-w-[1180px] px-6 md:px-8">
         {/* HERO */}
       <section
-  className="flex min-h-[600px] flex-col items-center justify-center border py-10 text-center md:py-[88px]"
+  className="flex min-h-[600px] flex-col items-center bg-[#3B60C5] justify-center border py-10 text-center md:py-[88px]"
 >
   <div className="flex flex-col items-center">
-    <div className="mb-5 w-fit rounded-md bg-neutral-400  px-3 py-1 font-sans text-[13px] text-[#222222]">
-      The All in one productivity web
+    <div className="mb-5 w-fit rounded-md bg-[#FDF2DE]  px-3 py-1 font-sans text-[13px] text-black font-medium px-7 py-1.4">
+      The All in one productivity web application
     </div>
 
-    <h1 className="max-w-4xl font-sans text-4xl font-semibold leading-[1.15] text-balance tracking-tight text-[#222222] md:text-[52px]">
+    <h1 className="max-w-4xl font-sans text-4xl font-semibold leading-[1.15] text-balance tracking-tight text-white md:text-[52px]">
       The web productivity package you were searching for
     </h1>
 
-    <p className="mt-6 max-w-[600px] text-[17px] leading-relaxed text-[#353535]">
+    <p className="mt-6 max-w-[600px] text-[17px] leading-relaxed text-neutral-300 text-balance">
       flowstate provides timers, leaderboard, activity tracking, streaks
       and many more for you.
     </p>
@@ -190,21 +191,22 @@ export default function Page() {
         </section>
 
         
-        <section id="install" className="py-[72px]">
-          <div className="rounded-xl border border-[#2D2C3A] text-[#232323] font-sans bg-[#e1dadc] p-8 text-center md:p-14">
-            <p className="font-semibold">Sign up to join others and boost your productivity 100%</p>
-
-            <button className="bg-[#232323] rounded-md py-2 px-3 text-white mt-3 cursor-pointer">sign in now</button>
-          </div>
-        </section>
+        
       </div>
 
       {/* FOOTER */}
-      <footer className="mt-20 border-t border-[#2D2C3A] px-8 py-8">
+      <footer className="mt-20 border-t border-[#2D2C3A] bg-[#3B60C5] px-8 py-8">
         <div className="mx-auto flex max-w-[1180px] flex-wrap items-center justify-between gap-3 font-sans text-xs text-[#9C99AC]">
-          <span>flowstate</span>
-          <span>built for VS Code</span>
-          <span>© 2026</span>
+          <span className="text-6xl font-black  text-white">flowstate</span>
+          <div className="text-neutral-100  gap-1 font-medium font-sans flex flex-col"> 
+            <Link href="https://github.com/AswinM1/productive0">
+             <span>Github</span></Link>
+         
+          <span>X</span>
+          <span>Install extension</span>
+          <span>builb by Aswin</span>
+          </div>
+          
         </div>
       </footer>
     </main>
@@ -231,7 +233,7 @@ function FeatureCard({
   return (
     <div
       id={feature.type === "leaderboard" ? "leaderboard" : undefined}
-      className={`relative flex min-h-[150px] flex-col justify-center stretch rounded-lg border border-[#f6f2f3] bg-[#f6f2f3] p-[26px] transition hover:border-[#3E3D50] ${feature.span}`}
+      className={`relative flex min-h-[150px] bg-[#3B60C5] flex-col justify-center stretch rounded-lg border border-[#f6f2f3] text-white p-[26px] transition hover:border-[#3E3D50] ${feature.span}`}
     >
       <span className="absolute left-[26px] top-5 font-sans text-[11.5px] text-[white]">
         {feature.type.replace("-", " ")}
