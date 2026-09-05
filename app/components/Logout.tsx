@@ -16,7 +16,7 @@ function Logout() {
 
   return (
     <div className="flex flex-col gap-4 border py-3">
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
               {session.user?.image && (
         <img
           src={session.user.image}
@@ -26,7 +26,6 @@ function Logout() {
       )}
       <div className="flex flex-col">
         <p>{session.user?.name}</p>
-      <p>{session.user?.email}</p>
       </div>
      
 

@@ -66,7 +66,7 @@ function Dashboard() {
           <div className="p-6">
          
             {page=="clock" && <Pomodoro></Pomodoro>}
-            {page=="Analytics" &&<Analytics></Analytics>}
+            {page=="Analytics" && <Analytics></Analytics>}
             {page=="leaderboard" &&<div><Leaderboard></Leaderboard></div>}
           </div>
         </main>
