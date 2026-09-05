@@ -57,14 +57,14 @@ export default function Page() {
   };
 
   return (
-    <main className="min-h-screen bg-[#13121A] text-[#EDEAE2]">
+    <main className="min-h-screen bg-[#f5f5f7]   text-[#EDEAE2]">
       {/* NAVBAR */}
-      <header className="sticky top-0 z-50 border-b border-[#2D2C3A] bg-[#13121A]/90 backdrop-blur-md">
+      <header className="sticky top-0 z-50 border-b  backdrop-blur-md">
         <div className="mx-auto flex max-w-[1180px] items-center justify-between px-6 py-[18px] md:px-8">
           {/* Logo */}
-          <div className="flex items-center gap-2 font-mono text-base font-semibold">
-            <span className="h-2 w-2 animate-pulse rounded-full bg-[#F2A65A]" />
-            flowline
+          <div className="flex items-center gap-2 font-sans text-base text-[#41465d] cursor-pointer font-semibold">
+            <span className="h-2 w-2 text-[#41465d] animate-pulse rounded-full " />
+             Productive0
           </div>
 
           {/* Links */}
@@ -93,7 +93,7 @@ export default function Page() {
 
           <a
             href="#install"
-            className="rounded bg-[#F2A65A] px-4 py-2 font-mono text-[13px] font-semibold text-[#1A1409]"
+            className="rounded  px-4 py-2 font-mono text-[13px] font-semibold text-[#1A1409]"
           >
             Install
           </a>
@@ -105,41 +105,35 @@ export default function Page() {
         <section className="grid items-center gap-14 py-16 md:py-[88px] lg:grid-cols-2">
           {/* Hero text */}
           <div>
-            <div className="mb-5 font-mono text-[13px] text-[#F2A65A]">
+            <div className="mb-5 font-sans bg-neutral-400 rounded-md px-3 py-1 text-[13px] text-[#222222]">
               for developers who forget to stop coding
             </div>
 
-            <h1 className="max-w-[11ch] font-mono text-4xl font-semibold leading-[1.15] tracking-tight md:text-[44px]">
-              Time your work without leaving the editor
+            <h1 className="max-w-4xl font-sans  text-[#222222] text-4xl font-medium leading-[1.15] tracking-tight md:text-[44px]">
+             The web productivity package you were searching for
             </h1>
 
-            <p className="mt-6 max-w-[46ch] text-[17px] leading-relaxed text-[#9C99AC]">
-              Flowline sits in the VS Code status bar, times every session
-              automatically, and turns your hours into streaks you don't want
-              to break — and a leaderboard your team can't stop checking.
+            <p className="mt-6 max-w-[46ch] text-[17px] leading-relaxed text-[#353535]">
+              Productive0 provides timers,leaderboard,activity tracking,streaks and many more for you
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href="#install"
-                className="rounded bg-[#F2A65A] px-[22px] py-[13px] text-sm font-semibold text-[#1A1409] transition hover:opacity-90"
+                className="rounded bg-[#232323] px-[22px] py-[13px] text-sm font-semibold text-white transition hover:opacity-90"
               >
                 Install the extension
               </a>
 
               <a
                 href="#how"
-                className="rounded border border-[#2D2C3A] px-[22px] py-[13px] font-mono text-sm transition hover:border-[#F2A65A]"
+                className="rounded border border-[#232323] px-[22px] py-[13px] font-mono text-sm transition  text-black font-sans  font-medium hover:border-[#1b1a1a]"
               >
                 See how it works
               </a>
             </div>
 
-            <div className="mt-7 flex flex-wrap gap-6 font-mono text-xs text-[#9C99AC]">
-              <span>free for individuals</span>
-              <span>works offline</span>
-              <span>zero config</span>
-            </div>
+           
           </div>
 
           {/* EDITOR MOCKUP */}
@@ -149,7 +143,7 @@ export default function Page() {
         {/* FEATURES */}
         <section id="features" className="py-[72px]">
           <div className="mb-10 max-w-[56ch]">
-            <h2 className="font-mono text-[28px] font-semibold">
+            <h2 className="font-sans  text-[28px] font-medium tracking-tight text-[#232323]">
               Everything runs where you already work
             </h2>
 
