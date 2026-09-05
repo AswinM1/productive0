@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Flame } from "lucide-react";
 
 const features = [
   {
@@ -104,7 +105,7 @@ export default function Page() {
       <div className="mx-auto max-w-[1180px] px-6 md:px-8">
         {/* HERO */}
       <section
-  className="flex min-h-[600px] flex-col items-center bg-[#3B60C5] justify-center border py-10 text-center md:py-[88px]"
+  className="flex min-h-[600px] flex-col items-center  rounded-md bg-[#3B60C5] justify-center border py-10 text-center md:py-[88px]"
 >
   <div className="flex flex-col items-center">
     <div className="mb-5 w-fit rounded-md bg-[#FDF2DE]  px-3 py-1 font-sans text-[13px] text-black font-medium px-7 py-1.4">
@@ -145,7 +146,7 @@ export default function Page() {
               The Whole productivity package is here
             </h2>
 
-            <p className="mt-3 text-[15.5px] text-[#9C99AC]">
+            <p className="mt-3 text-[15.5px] text-[neutral-300]">
              Timer,Leaderboard,Streaks,personal dashboards and many more to track your progress
             </p>
           </div>
@@ -246,11 +247,11 @@ function FeatureCard({
             2:47:18
           </div>
 
-          <h3 className="mb-2 font-sans text-[17px] font-semibold">
+          <h3 className="mb-2 font-sans text-[17px] font-semibold text-neutral-200">
             {feature.title}
           </h3>
 
-          <p className="text-sm text-[#9C99AC]">
+          <p className="text-sm text-neutral-400">
             {feature.description}
           </p>
           </div>
@@ -259,26 +260,19 @@ function FeatureCard({
 
       {feature.type === "streak" && (
         <>
-          <div className="absolute left-[26px] top-6 flex gap-[5px]">
-            {[1, 1, 1, 1, 1, 0, 0].map((filled, i) => (
-              <span
-                key={i}
-                className={`h-2.5 w-2.5 rounded-sm ${
-                  filled ? "bg-[#7FD99A]" : "bg-[#2D2C3A]"
-                }`}
-              />
-            ))}
-          </div>
-
-          <div className="mb-2 font-sans text-[40px] font-bold text-[#7FD99A]">
-            12
+          <div className="flex mt-4 text-xl font-semibold items-center">
+             10 <Flame className="h-8 w-8 text-orange-500 fill-orange-500" />   days running
+          
+          
+            
+            
           </div>
 
           <h3 className="mb-2 font-sans text-[17px] font-semibold">
-            days running
+          
           </h3>
 
-          <p className="text-sm text-[#9C99AC]">
+          <p className="text-sm text-neutral-200">
             {feature.description}
           </p>
         </>
@@ -309,17 +303,17 @@ function FeatureCard({
               key={rank}
               className="flex items-center border-b border-[#2D2C3A] py-2 font-sans text-[13.5px] last:border-0"
             >
-              <span className="w-5 text-[#9C99AC]">{rank}</span>
+              <span className="w-5 text-white">{rank}</span>
 
               <span
                 className={`flex-1 ml-2 ${
-                  name === "you" ? "text-[#7FD99A]" : ""
+                  name === "you" ? "font-bold font-sans" : ""
                 }`}
               >
                 {name}
               </span>
 
-              <span className="text-[#F2A65A]">{hours}</span>
+              <span className="text-yellow-300 font-semibold">{hours}</span>
             </div>
           ))}
         </div>
@@ -327,11 +321,11 @@ function FeatureCard({
 
       {feature.type === "heatmap" && (
         <>
-          <h3 className="mb-2 font-sans text-[17px] font-semibold">
+          <h3 className="mb-2 font-sans  mt-4 text-[17px] font-semibold">
             {feature.title}
           </h3>
 
-          <p className="text-sm text-[#9C99AC]">
+          <p className="text-sm text-neutral-200">
             {feature.description}
           </p>
 
@@ -357,12 +351,12 @@ function Heatmap() {
           key={index}
           className={`aspect-square rounded-[2px] ${
             level === 0
-              ? "bg-[#2D2C3A]"
+              ? "bg-[#dfea09]"
               : level === 1
-                ? "bg-[#6B5A45]"
+                ? "bg-[#020202]"
                 : level === 2
-                  ? "bg-[#B98247]"
-                  : "bg-[#F2A65A]"
+                  ? "bg-[#022bf8]"
+                  : "bg-[#faf9f8]"
           }`}
         />
       ))}
