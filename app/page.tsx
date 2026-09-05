@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 
 const features = [
   {
-    title: "Starts the moment you start typing",
+    title: "Build your own Timer counter",
     description:
-      "Flowline detects active coding automatically and pauses itself when you stop — no start button, no forgetting to stop.",
+      "Choose your desired time goal to chase and achieve it",
     type: "timer",
-    span: "md:col-span-2 md:row-span-2",
+    span: "md:col-span-2 md:row-span-2 ",
   },
   {
     title: "days running",
@@ -26,12 +26,12 @@ const features = [
     title: "Leaderboard",
     description: "",
     type: "leaderboard",
-    span: "md:row-span-2",
+    span: " col-span-2 md:row-span-2",
   },
   {
-    title: "A year of commits, visualized daily",
+    title:"Heatmaps to visualize your progress",
     description:
-      "Every square is a day of tracked work. No manual logging, ever.",
+      "Every square is a day of tracked work. ",
     type: "heatmap",
     span: "md:col-span-2",
   },
@@ -64,96 +64,92 @@ export default function Page() {
           {/* Logo */}
           <div className="flex items-center gap-2 font-sans text-base text-[#41465d] cursor-pointer font-semibold">
             <span className="h-2 w-2 text-[#41465d] animate-pulse rounded-full " />
-             Productive0
+             flowstate
           </div>
 
           {/* Links */}
-          <nav className="hidden gap-8 text-sm text-[#9C99AC] md:flex">
+          <nav className="hidden gap-8 text-sm text-[#232323] md:flex">
             <a
               href="#features"
-              className="transition hover:text-[#EDEAE2]"
+              className="transition hover:text-neutral-700 font-medium"
             >
               features
             </a>
 
             <a
               href="#leaderboard"
-              className="transition hover:text-[#EDEAE2]"
+              className="transition hover:text-neutral-700 font-medium"
             >
               leaderboard
             </a>
 
             <a
               href="#how"
-              className="transition hover:text-[#EDEAE2]"
+              className="transition hover:text-neutral-700 font-medium"
             >
               how it works
             </a>
           </nav>
 
           <a
-            href="#install"
-            className="rounded  px-4 py-2 font-mono text-[13px] font-semibold text-[#1A1409]"
+            href="/dashboard"
+            className="rounded  px-4 py-2 font-sans text-[13px]  bg-[#232323] font-semibold text-white"
           >
-            Install
+            Sign in
           </a>
         </div>
       </header>
 
       <div className="mx-auto max-w-[1180px] px-6 md:px-8">
         {/* HERO */}
-        <section className="grid items-center gap-14 py-16 md:py-[88px] lg:grid-cols-2">
-          {/* Hero text */}
-          <div>
-            <div className="mb-5 font-sans bg-neutral-400 rounded-md px-3 py-1 text-[13px] text-[#222222]">
-              for developers who forget to stop coding
-            </div>
+      <section
+  className="flex min-h-[600px] flex-col items-center justify-center border py-10 text-center md:py-[88px]"
+>
+  <div className="flex flex-col items-center">
+    <div className="mb-5 w-fit rounded-md bg-neutral-400  px-3 py-1 font-sans text-[13px] text-[#222222]">
+      The All in one productivity web
+    </div>
 
-            <h1 className="max-w-4xl font-sans  text-[#222222] text-4xl font-medium leading-[1.15] tracking-tight md:text-[44px]">
-             The web productivity package you were searching for
-            </h1>
+    <h1 className="max-w-4xl font-sans text-4xl font-semibold leading-[1.15] text-balance tracking-tight text-[#222222] md:text-[52px]">
+      The web productivity package you were searching for
+    </h1>
 
-            <p className="mt-6 max-w-[46ch] text-[17px] leading-relaxed text-[#353535]">
-              Productive0 provides timers,leaderboard,activity tracking,streaks and many more for you
-            </p>
+    <p className="mt-6 max-w-[600px] text-[17px] leading-relaxed text-[#353535]">
+      flowstate provides timers, leaderboard, activity tracking, streaks
+      and many more for you.
+    </p>
 
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a
-                href="#install"
-                className="rounded bg-[#232323] px-[22px] py-[13px] text-sm font-semibold text-white transition hover:opacity-90"
-              >
-                Install the extension
-              </a>
+    <div className="mt-8 flex flex-wrap justify-center gap-3">
+      <a
+        href="/dashboard"
+        className="rounded bg-[#232323] px-6 py-2 justify-center flex items-center text-sm font-semibold text-white transition hover:opacity-90"
+      >
+        Get started
+      </a>
 
-              <a
-                href="#how"
-                className="rounded border border-[#232323] px-[22px] py-[13px] font-mono text-sm transition  text-black font-sans  font-medium hover:border-[#1b1a1a]"
-              >
-                See how it works
-              </a>
-            </div>
-
-           
-          </div>
-
-          {/* EDITOR MOCKUP */}
-          <EditorMockup time={formatTime(seconds)} />
-        </section>
+      <a
+        href="#how"
+        className="rounded border border-[#232323] px-[22px] py-[13px] text-sm font-medium text-black transition hover:bg-[#232323] hover:text-white"
+      >
+        See how it works
+      </a>
+    </div>
+  </div>
+</section>
 
         {/* FEATURES */}
         <section id="features" className="py-[72px]">
           <div className="mb-10 max-w-[56ch]">
             <h2 className="font-sans  text-[28px] font-medium tracking-tight text-[#232323]">
-              Everything runs where you already work
+              The Whole productivity package is here
             </h2>
 
             <p className="mt-3 text-[15.5px] text-[#9C99AC]">
-              No dashboards to remember, no manual clock-in. Flowline watches
-              editor activity and stays out of your way until you want to look.
+             Timer,Leaderboard,Streaks,personal dashboards and many more to track your progress
             </p>
           </div>
 
-          <div className="grid auto-rows-[minmax(150px,auto)] gap-4 md:grid-cols-4">
+          <div className="grid auto-rows-[minmax(150px,auto)] gap-4 md:grid-cols-4 text-[#232323]">
             {features.map((feature, index) => (
               <FeatureCard
                 key={feature.type}
@@ -165,10 +161,10 @@ export default function Page() {
         </section>
 
         {/* HOW IT WORKS */}
-        <section id="how" className="py-[72px]">
+        <section id="how" className="py-[72px] text-[#232323]">
           <div className="mb-10 max-w-[56ch]">
-            <h2 className="font-mono text-[28px] font-semibold">
-              Set up once, forget it exists
+            <h2 className="font-sans text-[28px] font-semibold tracking-tight text-balance">
+              We Track your activity in where you already work
             </h2>
           </div>
 
@@ -176,46 +172,37 @@ export default function Page() {
             <Step
               number="01"
               title="Install from the marketplace"
-              description='Search "Flowline" in the VS Code extensions panel, or run the install command below.'
+              description='Search "Flowstate" in the VS Code extensions panel and install the extension'
             />
 
             <Step
               number="02"
               title="Keep coding as normal"
-              description="Flowline reads editor activity in the background. There's nothing to click to begin a session."
+              description=" Paste your Api key and The extension reads editor activity in the background. "
             />
 
             <Step
               number="03"
-              title="Check your streak and rank"
-              description="Open the dashboard anytime to see your hours, streak, and where you sit on the team leaderboard."
+              title="Gamifying the productivity process"
+              description="Maintain streaks and compete with others to top the leaderboard"
             />
           </div>
         </section>
 
-        {/* CTA */}
+        
         <section id="install" className="py-[72px]">
-          <div className="rounded-xl border border-[#2D2C3A] bg-[#1C1B26] p-8 text-center md:p-14">
-            <h2 className="font-mono text-2xl font-semibold md:text-[26px]">
-              Your editor already knows how long you've been at this
-            </h2>
+          <div className="rounded-xl border border-[#2D2C3A] text-[#232323] font-sans bg-[#e1dadc] p-8 text-center md:p-14">
+            <p className="font-semibold">Sign up to join others and boost your productivity 100%</p>
 
-            <p className="mb-7 mt-3 text-[#9C99AC]">
-              Flowline just makes it visible.
-            </p>
-
-            <div className="inline-flex items-center gap-3 rounded-md border border-[#2D2C3A] bg-[#13121A] px-[18px] py-3 font-mono text-sm text-[#7FD99A]">
-              <span className="text-[#9C99AC]">ext install</span>
-              flowline.tracker
-            </div>
+            <button className="bg-[#232323] rounded-md py-2 px-3 text-white mt-3 cursor-pointer">sign in now</button>
           </div>
         </section>
       </div>
 
       {/* FOOTER */}
       <footer className="mt-20 border-t border-[#2D2C3A] px-8 py-8">
-        <div className="mx-auto flex max-w-[1180px] flex-wrap items-center justify-between gap-3 font-mono text-xs text-[#9C99AC]">
-          <span>flowline</span>
+        <div className="mx-auto flex max-w-[1180px] flex-wrap items-center justify-between gap-3 font-sans text-xs text-[#9C99AC]">
+          <span>flowstate</span>
           <span>built for VS Code</span>
           <span>© 2026</span>
         </div>
@@ -226,85 +213,6 @@ export default function Page() {
 
 /* ---------------- EDITOR ---------------- */
 
-function EditorMockup({ time }: { time: string }) {
-  return (
-    <div className="overflow-hidden rounded-lg border border-[#2D2C3A] bg-[#1C1B26] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.6)]">
-      {/* title bar */}
-      <div className="flex gap-[7px] border-b border-[#2D2C3A] bg-[#201F2C] px-3.5 py-3">
-        <span className="h-2.5 w-2.5 rounded-full bg-[#3A3948]" />
-        <span className="h-2.5 w-2.5 rounded-full bg-[#3A3948]" />
-        <span className="h-2.5 w-2.5 rounded-full bg-[#3A3948]" />
-      </div>
-
-      {/* tabs */}
-      <div className="flex border-b border-[#2D2C3A] font-mono text-xs text-[#9C99AC]">
-        <div className="border-r border-[#2D2C3A] border-b-2 border-b-[#F2A65A] bg-[#1C1B26] px-4 py-2.5 text-[#EDEAE2]">
-          session.ts
-        </div>
-
-        <div className="border-r border-[#2D2C3A] px-4 py-2.5">
-          streak.ts
-        </div>
-      </div>
-
-      {/* code */}
-      <div className="grid grid-cols-[34px_1fr] px-0 py-[18px] font-mono text-[13px]">
-        <div className="select-none pr-3 text-right text-[#4A4959]">
-          {[1, 2, 3, 4, 5, 6, 7].map((n) => (
-            <div key={n} className="py-[2px]">
-              {n}
-            </div>
-          ))}
-        </div>
-
-        <div className="overflow-hidden">
-          <CodeLine>
-            <span className="text-[#F2A65A]">import</span>{" "}
-            {"{ track }"}{" "}
-            <span className="text-[#F2A65A]">from</span>{" "}
-            <span className="text-[#E3B8E8]">'flowline'</span>
-          </CodeLine>
-
-          <CodeLine />
-
-          <CodeLine>
-            <span className="text-[#F2A65A]">export function</span>{" "}
-            <span className="text-[#7FD99A]">startFocus</span>()
-          </CodeLine>
-
-          <CodeLine>
-            &nbsp;&nbsp;track.begin(
-            <span className="text-[#E3B8E8]">'deep-work'</span>)
-          </CodeLine>
-
-          <CodeLine>
-            &nbsp;&nbsp;
-            <span className="text-[#F2A65A]">return</span> track.session
-            <span className="ml-0.5 inline-block h-3.5 w-[7px] animate-pulse bg-[#F2A65A] align-middle" />
-          </CodeLine>
-
-          <CodeLine>{"}"}</CodeLine>
-
-          <CodeLine />
-        </div>
-      </div>
-
-      {/* status */}
-      <div className="flex items-center justify-between bg-[#F2A65A] px-3.5 py-2 font-mono text-xs font-semibold text-[#1A1409]">
-        <div className="flex gap-4">
-          <span>⏱ {time}</span>
-          <span>🔥 12 day streak</span>
-        </div>
-
-        <span>#3 on team</span>
-      </div>
-    </div>
-  );
-}
-
-function CodeLine({ children }: { children?: React.ReactNode }) {
-  return <div className="whitespace-pre py-[2px]">{children}</div>;
-}
 
 /* ---------------- FEATURE CARD ---------------- */
 
@@ -323,25 +231,27 @@ function FeatureCard({
   return (
     <div
       id={feature.type === "leaderboard" ? "leaderboard" : undefined}
-      className={`relative flex min-h-[150px] flex-col justify-end rounded-lg border border-[#2D2C3A] bg-[#1C1B26] p-[26px] transition hover:border-[#3E3D50] ${feature.span}`}
+      className={`relative flex min-h-[150px] flex-col justify-center stretch rounded-lg border border-[#f6f2f3] bg-[#f6f2f3] p-[26px] transition hover:border-[#3E3D50] ${feature.span}`}
     >
-      <span className="absolute left-[26px] top-5 font-mono text-[11.5px] text-[#9C99AC]">
+      <span className="absolute left-[26px] top-5 font-sans text-[11.5px] text-[white]">
         {feature.type.replace("-", " ")}
       </span>
 
       {feature.type === "timer" && (
         <>
-          <div className="mb-4 font-mono text-[52px] font-bold leading-none text-[#F2A65A]">
+        <div className="flex justify-center flex-col items-center">
+          <div className="mb-4 font-sans text-[52px] justify-center font-bold leading-none text-[#2323232]">
             2:47:18
           </div>
 
-          <h3 className="mb-2 font-mono text-[17px] font-semibold">
+          <h3 className="mb-2 font-sans text-[17px] font-semibold">
             {feature.title}
           </h3>
 
           <p className="text-sm text-[#9C99AC]">
             {feature.description}
           </p>
+          </div>
         </>
       )}
 
@@ -358,11 +268,11 @@ function FeatureCard({
             ))}
           </div>
 
-          <div className="mb-2 font-mono text-[40px] font-bold text-[#7FD99A]">
+          <div className="mb-2 font-sans text-[40px] font-bold text-[#7FD99A]">
             12
           </div>
 
-          <h3 className="mb-2 font-mono text-[17px] font-semibold">
+          <h3 className="mb-2 font-sans text-[17px] font-semibold">
             days running
           </h3>
 
@@ -374,7 +284,7 @@ function FeatureCard({
 
       {feature.type === "insights" && (
         <>
-          <h3 className="mb-2 font-mono text-[17px] font-semibold">
+          <h3 className="mb-2 font-sans text-[17px] font-semibold">
             {feature.title}
           </h3>
 
@@ -395,7 +305,7 @@ function FeatureCard({
           ].map(([rank, name, hours]) => (
             <div
               key={rank}
-              className="flex items-center border-b border-[#2D2C3A] py-2 font-mono text-[13.5px] last:border-0"
+              className="flex items-center border-b border-[#2D2C3A] py-2 font-sans text-[13.5px] last:border-0"
             >
               <span className="w-5 text-[#9C99AC]">{rank}</span>
 
@@ -415,7 +325,7 @@ function FeatureCard({
 
       {feature.type === "heatmap" && (
         <>
-          <h3 className="mb-2 font-mono text-[17px] font-semibold">
+          <h3 className="mb-2 font-sans text-[17px] font-semibold">
             {feature.title}
           </h3>
 
@@ -471,11 +381,11 @@ function Step({
 }) {
   return (
     <div className="border-t border-[#2D2C3A] pt-[18px]">
-      <div className="mb-2.5 font-mono text-[13px] text-[#F2A65A]">
+      <div className="mb-2.5 font-sans text-[13px] text-[#F2A65A]">
         {number}
       </div>
 
-      <h4 className="mb-2 font-mono text-base font-semibold">
+      <h4 className="mb-2 font-sans text-base font-semibold">
         {title}
       </h4>
 
