@@ -1,53 +1,100 @@
-import React, { useEffect, useState } from 'react'
-import { EvilBarChart } from "@/components/evilcharts/charts/recharts-bar-chart";
-import { type ChartConfig } from "@/components/evilcharts/ui/recharts-chart";
-function Analytics() {
-  
-  const chartConfig = {
-    minutes: {
-      label: "Focus time",
-      colors: {
-        light: ["#047857"],
-        dark: ["#10b981"],
-      },
-    },
-  } 
-    const[data,setData]=useState([])
-    useEffect(()=>
-    {
-        fetch("api/analytics").then((data)=>data.json()).then((data)=>setData(data)).catch((error)=>console.log(error))
+"use client";
 
-    },[])
+import { useEffect, useState } from "react";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  XAxis,
+  YAxis
+} from "recharts";
+
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  type ChartConfig,
+} from "@/components/ui/chart";
+
+type AnalyticsData = {
+  date: string;
+  minutes: number;
+};
+
+const chartConfig = {
+  minutes: {
+    label: "Focus time",
+  },
+} satisfies ChartConfig;
+
+export default function Analytics() {
+  const [data, setData] = useState<AnalyticsData[]>([]);
+
+  useEffect(() => {
+    fetch("/api/analytics")
+      .then((res) => res.json())
+      .then((result) => setData(result))
+      .catch((error) => console.error(error));
+  }, []);
+
   return (
-    <div className="w-full p-6">
-  <EvilBarChart
-    data={data}
-    config={chartConfig}
-    stackType="default"
-    className="h-[400px] w-full"
-  >
-    <EvilBarChart.Grid />
+    <div className="w-full">
+      <ChartContainer
+        config={chartConfig}
+        className="h-[400px] w-full"
+      >
+        <BarChart
+          data={data}
+          margin={{
+            left: 12,
+            right: 12,
+            top: 12,
+            bottom: 12,
+          }}
+        >
+          <CartesianGrid vertical={false} />
 
-    <EvilBarChart.XAxis
-      dataKey="date"
-      
-    />
-    <EvilBarChart.YAxis
-      dataKey="minutes"
-      
-    />
+          <XAxis
+            dataKey="date"
+            tickLine={false}
+            axisLine={false}
+            tickMargin={8}
+            tickFormatter={(value) => {
+              const date = new Date(value);
 
-    <EvilBarChart.Tooltip />
+              return date.toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+              });
+            }}
+          />
+          <YAxis
+            dataKey="minutes"
+            tickLine={false}
+            axisLine={false}
+            tickMargin={8}
+            tickFormatter={(value:any) => {
+              const date = new Date(value);
 
-    <EvilBarChart.Bar
-      dataKey="minutes"
-      variant="default"
-      radius={4}
-      
-      isClickable
-    />
-  </EvilBarChart>
-</div>)
+              return date.toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+              });
+            }}
+          />
+
+          <ChartTooltip
+            cursor={false}
+            content={<ChartTooltipContent />}
+          />
+
+          <Bar
+            dataKey="minutes"
+            radius={4}
+            barSize={30}
+          />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
 }
-
-export default Analytics
