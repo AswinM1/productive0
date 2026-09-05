@@ -49,7 +49,7 @@ export default function Pomodoro() {
     return value.toString().padStart(2, "0");
   };
 
-  // Set timer
+
   function setTimer() {
     const totalSeconds =
       hours * 3600 +
@@ -115,8 +115,8 @@ export default function Pomodoro() {
   }
 
   return (
-    <div className="flex flex-col items-center gap-8">
-      {/* Timer */}
+    <div className="flex flex-col  h-[400px]   items-center mx-auto justify-center gap-8">
+      
 
       <div className="font-mono text-7xl font-semibold">
         {format(displayHours)}:
