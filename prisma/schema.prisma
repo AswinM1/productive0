@@ -18,10 +18,26 @@ model User {
   email     String     @unique
   createdAt DateTime   @default(now())
   Streak    Int        @default(0)
-
+  activity Activity[]
+  apiTokens ApiToken[]
   pomodoros Pomodoro[]
 }
 
+model Activity{
+  id String @id @default(uuid()) @db.Uuid
+  userId String @db.Uuid
+  startedAt DateTime
+  endedAt DateTime
+  duration Int
+  language String?
+  projectId String?
+  createdAt DateTime @default(now())
+  user User @relation(fields: [userId] ,references: [id])
+
+
+
+
+}
 model Pomodoro {
   id        String   @id @default(uuid()) @db.Uuid
   userId    String   @db.Uuid
@@ -29,4 +45,16 @@ model Pomodoro {
   completed Boolean  @default(false)
   createdAt DateTime @default(now())
   user User @relation(fields: [userId], references: [id],onDelete: Cascade)
+}
+model ApiToken {
+  id         String    @id @default(cuid())
+  userId     String     @db.Uuid
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash  String    @unique
+  tokenPreview String  // last 4 chars, to show in UI e.g. "sk_...ab12"
+  createdAt  DateTime  @default(now())
+  lastUsedAt DateTime?
+  revokedAt  DateTime?
+
+  @@index([userId])
 }
