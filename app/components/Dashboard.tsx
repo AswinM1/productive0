@@ -25,7 +25,7 @@ import ActivityPage from "../activity/page";
 function Dashboard() {
     const[page,setPage]=useState("clock")
   return (
-    <SidebarProvider>
+    <SidebarProvider >
       <div className="flex min-h-screen w-full">
         <Sidebar>
           <SidebarContent>
