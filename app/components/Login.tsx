@@ -9,14 +9,15 @@ function Login() {
       
       
       {/* Left - Login */}
-      <div className="flex items-center w-full justify-center bg-[#FDF2DE] px-6 py-12">
-        <div className="w-full max-w-sm  px-5 py-10  rounded-md">
+      <div className="flex items-center w-full justify-center mx-auto  bg-neutral-200 px-6 py-12">
+        <div className="w-full max-w-sm  px-5 py-10 text-center rounded-md flex flex-col justify-center">
+          
           <div className="mb-8">
-            <h2 className="text-3xl  text-center font-semibold tracking-tight  text-gray-900">
-              Welcome back
+            <h2 className="text-xl  text-center tracking-tight font-medium tracking-tight  text-gray-900">
+              Log in to flowstate
             </h2>
 
-            <p className="mt-2 text-sm text-center text-gray-500 ">
+            <p className="mt-2 text-sm text-center justify-center flex w-full text-gray-500 ">
               Sign in to continue to flowstate
             </p>
           </div>
@@ -27,7 +28,7 @@ function Login() {
                 callbackUrl: "/dashboard",
               })
             }
-            className="flex bg-[#3B60C5] w-full cursor-pointer items-center justify-center gap-3 rounded-md  border-gray-300 text-white px-4 py-3 text-sm font-medium text-gray-900 transition hover:bg-blue-500"
+           className="flex w-full cursor-pointer items-center justify-center gap-3 rounded-md border border-neutral-300 bg-neutral-200 px-4 py-3 text-sm font-medium text-black shadow-[inset_1px_1px_2px_1px_rgba(0,0,0,0.08)]  transition hover:bg-neutral-300"
           >
             <svg
               viewBox="0 0 24 24"
@@ -55,13 +56,11 @@ function Login() {
             Continue with Google
           </button>
 
-          <p className="mt-6 text-center text-xs text-gray-800">
-            By continuing, you agree to our terms and privacy policy.
-          </p>
+        
         </div>
       </div>
 
-      {/* Right - Large Image */}
+ 
       
     </div>
   );

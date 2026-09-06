@@ -1,13 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  Timer,
-  BarChart3,
-  Trophy,
-  Activity,
-  Settings,
-} from "lucide-react";
+import { Timer, BarChart3, Trophy, Activity, Settings } from "lucide-react";
+import Link from "next/link";
 
 import {
   Sidebar,
@@ -30,95 +25,51 @@ import Analytics from "./Analytics";
 import TokenPage from "../settings/page";
 import ActivityPage from "../activity/page";
 
+const NAV_ITEMS = [
+  { key: "clock", label: "Timer", icon: Timer, component: Pomodoro },
+  { key: "analytics", label: "Analytics", icon: BarChart3, component: Analytics },
+  { key: "leaderboard", label: "Leaderboard", icon: Trophy, component: Leaderboard },
+  { key: "activity", label: "Your Activity", icon: Activity, component: ActivityPage },
+  { key: "settings", label: "Settings", icon: Settings, component: TokenPage },
+] as const;
+
+type PageKey = (typeof NAV_ITEMS)[number]["key"];
+
 function Dashboard() {
-  const [page, setPage] = useState("clock");
+  const [page, setPage] = useState<PageKey>("clock");
+
+  const ActivePage = NAV_ITEMS.find((item) => item.key === page)?.component ?? Pomodoro;
 
   return (
     <SidebarProvider>
-      <div className="flex min-h-screen w-full">
-        <Sidebar className="bg-[#3B60C5] text-white">
-          <SidebarContent className="bg-[#3B60C5]">
+      <div className="flex min-h-screen w-full font-medium">
+        <Sidebar>
+          <SidebarContent className="text-neutral-800">
             <SidebarGroup>
-              <SidebarGroupLabel className="px-3 py-4 text-white/70">
+              <Link href="/">
+                <SidebarGroupLabel className="px-3 py-4 mb-4 text-md">
+                  Flowstate
+                </SidebarGroupLabel>
+              </Link>
+              <SidebarGroupLabel className="px-3 py-4 text-sm">
                 Dashboard
               </SidebarGroupLabel>
 
               <SidebarGroupContent>
                 <SidebarMenu className="gap-2 px-2">
-                  {/* Timer */}
-                  <SidebarMenuItem>
-                    <SidebarMenuButton
-                      onClick={() => setPage("clock")}
-                      className={`h-11 gap-3 text-white hover:bg-white/15 hover:text-white ${
-                        page === "clock"
-                          ? "bg-white/20 text-white"
-                          : ""
-                      }`}
-                    >
-                      <Timer size={20} />
-                      <span>Timer</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-
-                  {/* Analytics */}
-                  <SidebarMenuItem>
-                    <SidebarMenuButton
-                      onClick={() => setPage("Analytics")}
-                      className={`h-11 gap-3 text-white hover:bg-white/15 hover:text-white ${
-                        page === "Analytics"
-                          ? "bg-white/20 text-white"
-                          : ""
-                      }`}
-                    >
-                      <BarChart3 size={20} />
-                      <span>Analytics</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-
-                  {/* Leaderboard */}
-                  <SidebarMenuItem>
-                    <SidebarMenuButton
-                      onClick={() => setPage("leaderboard")}
-                      className={`h-11 gap-3 text-white hover:bg-white/15 hover:text-white ${
-                        page === "leaderboard"
-                          ? "bg-white/20 text-white"
-                          : ""
-                      }`}
-                    >
-                      <Trophy size={20} />
-                      <span>Leaderboard</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-
-                  {/* Activity */}
-                  <SidebarMenuItem>
-                    <SidebarMenuButton
-                      onClick={() => setPage("Activity")}
-                      className={`h-11 gap-3 text-white hover:bg-white/15 hover:text-white ${
-                        page === "Activity"
-                          ? "bg-white/20 text-white"
-                          : ""
-                      }`}
-                    >
-                      <Activity size={20} />
-                      <span>Your Activity</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-
-                  {/* Settings */}
-                  <SidebarMenuItem>
-                    <SidebarMenuButton
-                      onClick={() => setPage("Settings")}
-                      className={`h-11 gap-3 text-white hover:bg-white/15 hover:text-white ${
-                        page === "Settings"
-                          ? "bg-white/20 text-white"
-                          : ""
-                      }`}
-                    >
-                      <Settings size={20} />
-                      <span>Settings</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
+                  {NAV_ITEMS.map(({ key, label, icon: Icon }) => (
+                    <SidebarMenuItem key={key}>
+                      <SidebarMenuButton
+                        onClick={() => setPage(key)}
+                        className={`h-11 gap-3 cursor-pointer hover:bg-neutral-200 over:text-neutral-400 ${
+                          page === key ? "bg-white/20" : ""
+                        }`}
+                      >
+                        <Icon size={20} />
+                        <span>{label}</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
                 </SidebarMenu>
               </SidebarGroupContent>
             </SidebarGroup>
@@ -131,13 +82,8 @@ function Dashboard() {
 
         <main className="flex-1">
           <SidebarTrigger />
-
           <div className="p-6">
-            {page === "clock" && <Pomodoro />}
-            {page === "Analytics" && <Analytics />}
-            {page === "leaderboard" && <Leaderboard />}
-            {page === "Settings" && <TokenPage />}
-            {page === "Activity" && <ActivityPage />}
+            <ActivePage />
           </div>
         </main>
       </div>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Flame } from "lucide-react";
 import { motion } from "motion/react";
+import Pomodoro from "./components/Clock";
 
 const features = [
   {
@@ -31,14 +32,14 @@ const features = [
     title: "Leaderboard",
     description: "",
     type: "leaderboard",
-    span: "col-span-2 md:row-span-2",
+    span: "col-span-2 md:row-span-1",
   },
   {
     title: "Heatmaps to visualize your progress",
     description:
       "Every square is a day of tracked work.",
     type: "heatmap",
-    span: "md:col-span-2",
+    span: "md:col-span-3",
   },
 ];
 
@@ -540,31 +541,17 @@ function FeatureCard({
               duration: 0.6,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="mb-4 font-sans text-[52px] font-bold leading-none text-white"
+            className="mb-4 font-sans  text-[52px] font-bold leading-none text-white"
           >
 
            
-
-            <motion.span
-              key={seconds}
-              initial={{
-                opacity: 0,
-                y: 5,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              transition={{
-                duration: 0.5,
-              }}
-            >
-              {formatFeatureTime(seconds)}
-            </motion.span>
+             
+             <div className="scale-80  rotate-12 "> <Pomodoro></Pomodoro></div>
+            
 
           </motion.div>
 
-          <h3 className="mb-2 font-sans text-[17px] font-semibold text-neutral-100">
+          <h3 className="mb-2 font-sans text-[12px] font-semibold text-neutral-100">
             {feature.title}
           </h3>
 
@@ -661,7 +648,7 @@ function FeatureCard({
       {/* ================================================= */}
 
       {feature.type === "leaderboard" && (
-        <div className="mt-7 flex flex-col gap-1.5 relative  w-full ">
+        <div className=" flex flex-col gap-1.5 relative  w-full ">
           <div className="absolute bg-linear-to-t from-neutral-500 to-transparent flex w-full bottom-0 left-0"></div>
 
           {[
@@ -670,6 +657,9 @@ function FeatureCard({
             ["03", "you", "31.4h"],
             ["04", "kenji.t", "28.7h"],
             ["05", "ana_ruiz", "25.1h"],
+            ["06", "yll", "31.4h"],
+            ["07", "kenji.t", "28.7h"],
+            ["08", "ana_ruiz", "25.1h"],
           ].map(([rank, name, hours], index) => (
 
             <motion.div

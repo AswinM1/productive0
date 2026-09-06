@@ -14,13 +14,13 @@ export default withAuth(
 
 export const config = {
   matcher: [
- "/dashboard/:path*",
-    "/settings",
-    "/activity",
-    "/analytics",
-    "/leaderboard",
-    "/tokens",
-    "/user"
+//  "/dashboard/:path*",
+    // "/settings",
+    // "/activity",
+    // "/analytics",
+    // "/leaderboard",
+    // "/tokens",
+    // "/user"
 
   ],
 };
