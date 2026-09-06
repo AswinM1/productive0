@@ -204,7 +204,7 @@ export default function Page() {
             {/* Badge */}
 
             <motion.div
-              variants={itemVariants}
+              
               whileHover={{
                 scale: 1.04,
               }}
@@ -216,7 +216,7 @@ export default function Page() {
             {/* Heading */}
 
             <motion.h1
-              variants={itemVariants}
+            
               className="max-w-3xl font-sans text-4xl font-semibold leading-[1.15] tracking-tight text-white md:text-[52px]"
             >
               The Web productivity Tracker you are searching for
@@ -225,7 +225,7 @@ export default function Page() {
             {/* Description */}
 
             <motion.p
-              variants={itemVariants}
+              
               className="mt-6 max-w-[600px] text-[17px] leading-relaxed text-neutral-300"
             >
               flowstate provides timers, leaderboard, activity tracking,
@@ -236,7 +236,7 @@ export default function Page() {
             {/* Buttons */}
 
             <motion.div
-              variants={itemVariants}
+            
               className="mt-8 flex flex-wrap justify-center gap-3"
             >
 
@@ -351,7 +351,7 @@ export default function Page() {
           >
 
             <motion.h2
-              variants={itemVariants}
+          
               className="font-sans text-[28px] font-semibold tracking-tight"
             >
               We Track your activity in where you already work
@@ -504,7 +504,7 @@ function FeatureCard({
           ? "leaderboard"
           : undefined
       }
-      variants={cardVariants}
+    
       whileHover={{
         y: -6,
         scale: 1.015,
@@ -848,7 +848,7 @@ function Step({
 
   return (
     <motion.div
-      variants={itemVariants}
+    
       
       className="rounded-md border-t border-[#2D2C3A] bg-[#3B60C5] px-4 py-6"
     >
