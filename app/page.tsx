@@ -144,7 +144,7 @@ export default function Page() {
 
             {[
               ["#features", "features"],
-              ["#leaderboard", "leaderboard"],
+              ["/leaderboard", "leaderboard"],
               ["#how", "how it works"],
             ].map(([href, label]) => (
               <motion.a
