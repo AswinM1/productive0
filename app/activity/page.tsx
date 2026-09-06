@@ -22,6 +22,7 @@ export default function ActivityPage() {
         const response = await fetch("/api/activity");
 
         const data = await response.json();
+        console.log(data)
 
         if (!response.ok) {
           throw new Error(data.error || "Failed to load activities");
