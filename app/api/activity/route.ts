@@ -64,9 +64,7 @@ export async function GET() {
 
 export async function POST(req: Request) {
   try {
-    // -----------------------------------------
-    // 1. Get Bearer token
-    // -----------------------------------------
+
 
     const authHeader = req.headers.get("Authorization");
 
@@ -79,7 +77,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // Remove "Bearer "
+   
     const token = authHeader.substring(7);
 
     if (!token) {
@@ -93,16 +91,11 @@ export async function POST(req: Request) {
 
     console.log("🔑 API token received");
 
-    // -----------------------------------------
-    // 2. Hash token
-    // -----------------------------------------
+    
 
     const tokenHash = hashToken(token);
 
-    // -----------------------------------------
-    // 3. Find API token
-    // -----------------------------------------
-
+  
     const owner = await prisma.apiToken.findUnique({
       where: {
         tokenHash,
@@ -120,32 +113,15 @@ export async function POST(req: Request) {
       );
     }
 
-    // -----------------------------------------
-    // 4. Check revoked
-    // -----------------------------------------
+  
 
-    
-    console.log(
-      "✅ Token belongs to user:",
-      owner.userId
-    );
-
-    // -----------------------------------------
-    // 5. Read activity
-    // -----------------------------------------
-
+   
     const data = await req.json();
     console.log(data)
 
-    console.log(
-      "📥 RECEIVED ACTIVITY:",
-      data
-    );
+   
 
-    // -----------------------------------------
-    // 6. Create activity
-    // -----------------------------------------
-
+ 
     const createdActivity =
       await prisma.activity.create({
         data: {
@@ -168,15 +144,8 @@ export async function POST(req: Request) {
         },
       });
 
-    console.log(
-      "✅ ACTIVITY CREATED:",
-      createdActivity
-    );
-
-    // -----------------------------------------
-    // 7. Update token last used
-    // -----------------------------------------
-
+  
+  
     await prisma.apiToken.update({
       where: {
         id: owner.id,
@@ -187,9 +156,6 @@ export async function POST(req: Request) {
       },
     });
 
-    // -----------------------------------------
-    // 8. Return activity
-    // -----------------------------------------
 
     return NextResponse.json(
       createdActivity,
