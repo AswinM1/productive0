@@ -4,42 +4,37 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Flame } from "lucide-react";
 import { motion } from "motion/react";
-import Pomodoro from "./components/Clock";
 
 const features = [
   {
-    title: "Build your own Timer counter",
-    description:
-      "Choose your desired time goal to chase and achieve it",
+    title: "Build your own timer",
+    description: "Choose a time goal and stay focused until you reach it.",
     type: "timer",
-    span: "md:col-span-2 md:row-span-2",
+    span: "md:col-span-2 md:row-span-1",
   },
   {
     title: "days running",
-    description:
-      "Hit your daily minimum and keep the chain alive.",
+    description: "Hit your daily minimum and keep the chain alive.",
     type: "streak",
     span: "",
   },
   {
-    title: "Your best hours",
-    description:
-      "See exactly when your focus peaks across the week.",
-    type: "insights",
+    title: "Your progress tracked",
+    description: "The extension tracks your progress and use the dashboard to gather your insights ",
+    type: "Extension based Tracking",
     span: "",
   },
   {
     title: "Leaderboard",
     description: "",
     type: "leaderboard",
-    span: "col-span-2 md:row-span-1",
+    span: "col-span-2",
   },
   {
     title: "Heatmaps to visualize your progress",
-    description:
-      "Every square is a day of tracked work.",
+    description: "Every square is a day of tracked work.",
     type: "heatmap",
-    span: "md:col-span-3",
+    span: "md:col-span-2",
   },
 ];
 
@@ -52,47 +47,8 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
-  hidden: {
-    opacity: 0,
-    y: 30,
-    scale: 0.96,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.6,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
-
-const cardVariants = {
-  hidden: {
-    opacity: 0,
-    y: 35,
-    scale: 0.94,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.65,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
-
 export default function Page() {
-  // Timer starts at 02:47:18
   const [seconds, setSeconds] = useState(10038);
-
-  // ---------------------------------------------
-  // TIMER
-  // ---------------------------------------------
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -103,152 +59,94 @@ export default function Page() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-[#FDF2DE]">
-
-      {/* --------------------------------------------- */}
-      {/* NAVBAR */}
-      {/* --------------------------------------------- */}
-
+    <main className="min-h-screen bg-white text-neutral-900">
+      {/* Navbar */}
       <motion.header
-        initial={{
-          opacity: 0,
-          y: -20,
-        }}
-        animate={{
-          opacity: 1,
-          y: 0,
-        }}
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{
           duration: 0.6,
           ease: [0.22, 1, 0.36, 1],
         }}
-        className="sticky top-0 z-50 border-b backdrop-blur-md"
+        className="sticky top-0 z-50 border-b border-neutral-200 bg-white/90 backdrop-blur-md"
       >
-        <div className="mx-auto flex max-w-[1180px] items-center justify-between px-6 py-[18px] md:px-8">
-
-          {/* Logo */}
-
-          <motion.div
-            whileHover={{
-              scale: 1.03,
-            }}
-            className="flex cursor-pointer items-center gap-2 font-sans font-black tracking-wide text-black"
+        <div className="mx-auto flex max-w-[1180px] items-center justify-between px-6 py-4 md:px-8">
+          <Link
+            href="/"
+            className="flex items-center gap-2 text-sm font-semibold tracking-tight"
           >
-            <span className="h-2 w-2 rounded-full bg-black" />
-
+            <span className="h-2 w-2 rounded-full bg-neutral-900" />
             flowstate
-          </motion.div>
+          </Link>
 
-          {/* Navigation */}
+          <nav className="hidden items-center gap-7 text-sm text-neutral-600 md:flex">
+            <a
+              href="#features"
+              className="transition-colors hover:text-neutral-900"
+            >
+              Features
+            </a>
 
-          <nav className="hidden gap-8 text-sm text-[#232323] md:flex">
+            <a
+              href="#leaderboard"
+              className="transition-colors hover:text-neutral-900"
+            >
+              Leaderboard
+            </a>
 
-            {[
-              ["#features", "features"],
-              ["/leaderboard", "leaderboard"],
-              ["#how", "how it works"],
-            ].map(([href, label]) => (
-              <motion.a
-                key={href}
-                href={href}
-                whileHover={{
-                  y: -2,
-                }}
-                transition={{
-                  duration: 0.2,
-                }}
-                className="font-medium transition hover:text-neutral-700"
-              >
-                {label}
-              </motion.a>
-            ))}
-
+            <a
+              href="#how"
+              className="transition-colors hover:text-neutral-900"
+            >
+              How it works
+            </a>
           </nav>
 
-          {/* Sign in */}
-
-          <motion.a
+          <Link
             href="/dashboard"
-            whileHover={{
-              scale: 1.04,
-              y: -2,
-            }}
-            whileTap={{
-              scale: 0.97,
-            }}
-            className="rounded bg-[#232323] px-4 py-2 font-sans text-[13px] font-semibold text-white"
+            className="rounded-md bg-neutral-900 px-5 py-2 text-[13px] font-medium text-white transition-colors hover:bg-neutral-700"
           >
             Sign in
-          </motion.a>
-
+          </Link>
         </div>
       </motion.header>
 
+      {/* Main */}
       <div className="mx-auto max-w-[1180px] px-6 md:px-8">
-
-        {/* --------------------------------------------- */}
-        {/* HERO */}
-        {/* --------------------------------------------- */}
-
+        {/* Hero */}
         <motion.section
           initial="hidden"
           animate="visible"
           variants={containerVariants}
-          className="flex min-h-[600px] flex-col items-center justify-center rounded-md border bg-[#3B60C5] py-10 text-center md:py-[88px]"
+          className="flex min-h-[580px] flex-col items-center justify-center border-b border-neutral-200 py-20 text-center md:py-28"
         >
           <motion.div
             variants={containerVariants}
-            className="flex flex-col items-center"
+            className="flex max-w-3xl flex-col items-center"
           >
-
-            {/* Badge */}
-
             <motion.div
-              
-              whileHover={{
-                scale: 1.04,
-              }}
-              className="mb-5 w-fit rounded-md bg-[#FDF2DE] px-7 py-1.5 font-sans text-[13px] font-medium text-black"
+              whileHover={{ scale: 1.04 }}
+              className="mb-6 rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5 text-xs font-medium text-blue-700"
             >
-              The All in one productivity web application
+              The all-in-one productivity tracker
             </motion.div>
 
-            {/* Heading */}
-
-            <motion.h1
-            
-              className="max-w-3xl font-sans text-4xl font-semibold leading-[1.15] tracking-tight text-white md:text-[52px]"
-            >
-              The Web productivity Tracker you are searching for
+            <motion.h1 className="max-w-3xl text-4xl font-semibold leading-[1.08] tracking-[-0.04em] text-neutral-950 md:text-6xl">
+              Track your work.
+              <br />
+              Build your flow.
             </motion.h1>
 
-            {/* Description */}
-
-            <motion.p
-              
-              className="mt-6 max-w-[600px] text-[17px] leading-relaxed text-neutral-300"
-            >
-              flowstate provides timers, leaderboard, activity tracking,
-              streaks to level your productivity experience. Install the
-              extension and start tracking.
+            <motion.p className="mt-6 max-w-xl text-[16px] leading-7 text-neutral-500">
+              Flowstate combines timers, activity tracking, streaks,
+              analytics, and leaderboards to help you stay productive.
             </motion.p>
 
-            {/* Buttons */}
-
-            <motion.div
-            
-              className="mt-8 flex flex-wrap justify-center gap-3"
-            >
-
+            <motion.div className="mt-8 flex flex-wrap justify-center gap-3">
               <motion.a
                 href="/dashboard"
-                whileHover={{
-                  y: -2,
-                }}
-                whileTap={{
-                  scale: 0.96,
-                }}
-                className="flex items-center justify-center rounded bg-[#232323] px-6 py-2 text-sm font-semibold text-white transition hover:bg-neutral-700"
+                whileTap={{ scale: 0.96 }}
+                className="rounded-md bg-neutral-900 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-neutral-700"
               >
                 Get started
               </motion.a>
@@ -257,69 +155,41 @@ export default function Page() {
                 href="https://marketplace.visualstudio.com/items?itemName=flow-state.Flowstate-dev"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{
-                  y: -2,
-                }}
-                whileTap={{
-                  scale: 0.96,
-                }}
-                className="rounded border border-[#232323] bg-white px-[22px] py-[13px] text-sm font-medium text-black transition hover:bg-neutral-300"
+                whileTap={{ scale: 0.96 }}
+                className="rounded-md border border-neutral-300 bg-white px-6 py-2.5 text-sm font-medium text-neutral-900 transition-colors hover:bg-neutral-50"
               >
-                Install Extension
+                Install extension
               </motion.a>
-
             </motion.div>
-
           </motion.div>
         </motion.section>
 
-      
-        <section
-          id="features"
-          className="py-18"
-        >
-
+        {/* Features */}
+        <section id="features" className="py-20">
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{
-              once: true,
-              amount: 0.2,
-            }}
+            viewport={{ once: true, amount: 0.2 }}
             variants={containerVariants}
-            className="mb-10 max-w-[56ch]"
+            className="mb-10 max-w-xl"
           >
-
-            <motion.h2
-            
-              className="font-sans text-[28px] font-semibold tracking-tight text-[#232323]"
-            >
-              The Whole productivity package is here
+            <motion.h2 className="text-2xl font-semibold tracking-tight text-neutral-950 md:text-3xl">
+              Everything you need to stay productive
             </motion.h2>
 
-            <motion.p
-             
-              className="mt-3 text-[15.5px] text-[#555]"
-            >
-              Timer, Leaderboard, Streaks, personal dashboards and many more
-              to track your progress
+            <motion.p className="mt-3 text-[15px] leading-6 text-neutral-500">
+              Timers, activity tracking, streaks, analytics, and leaderboards
+              in one simple workspace.
             </motion.p>
-
           </motion.div>
-
-          {/* BENTO GRID */}
 
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{
-              once: true,
-              amount: 0.15,
-            }}
+            viewport={{ once: true, amount: 0.15 }}
             variants={containerVariants}
-            className="grid auto-rows-[minmax(150px,auto)] gap-4 text-[#232323] md:grid-cols-4"
+            className="grid auto-rows-[minmax(150px,auto)] gap-3 md:grid-cols-4"
           >
-
             {features.map((feature, index) => (
               <FeatureCard
                 key={feature.type}
@@ -328,159 +198,100 @@ export default function Page() {
                 seconds={seconds}
               />
             ))}
-
           </motion.div>
-
         </section>
 
-     
-        <section
-          id="how"
-          className="py-[72px] text-[#232323]"
-        >
-
+        {/* How it works */}
+        <section id="how" className="border-t border-neutral-200 py-20">
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{
-              once: true,
-              amount: 0.2,
-            }}
+            viewport={{ once: true, amount: 0.2 }}
             variants={containerVariants}
-            className="mb-10 max-w-[56ch]"
+            className="mb-10 max-w-xl"
           >
-
-            <motion.h2
-          
-              className="font-sans text-[28px] font-semibold tracking-tight"
-            >
-              We Track your activity in where you already work
+            <motion.h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
+              Track your activity where you already work
             </motion.h2>
 
+            <motion.p className="mt-3 text-[15px] leading-6 text-neutral-500">
+              Connect Flowstate to VS Code and start tracking automatically.
+            </motion.p>
           </motion.div>
 
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{
-              once: true,
-              amount: 0.2,
-            }}
+            viewport={{ once: true, amount: 0.2 }}
             variants={containerVariants}
-            className="grid gap-6 md:grid-cols-3"
+            className="grid gap-3 md:grid-cols-3"
           >
-
             <Step
               number="01"
-              title="Install from the marketplace"
-              description='Search "Flowstate tracker" in the VS Code extensions panel and install the extension and sign in to get your api key'
+              title="Install the extension"
+              description='Search "Flowstate tracker" in the VS Code extensions panel and install it.'
             />
 
             <Step
               number="02"
-              title="Get the Api key from the dashboard"
-              description="After copying the Api key press Ctrl + Shift + P in your VS Code and search for Flowstate: Set API Token and paste your API key"
+              title="Connect your account"
+              description="Get your API key from the dashboard and set it using the Flowstate command."
             />
 
             <Step
               number="03"
-              title="Track your progress"
-              description="You can track your progress from the dashboard and top the leaderboard"
+              title="Start tracking"
+              description="Your activity is tracked automatically and becomes available in your dashboard."
             />
-
           </motion.div>
-
         </section>
-
       </div>
 
-      {/* --------------------------------------------- */}
-      {/* FOOTER */}
-      {/* --------------------------------------------- */}
-
+      {/* Footer */}
       <motion.footer
-        initial={{
-          opacity: 0,
-          y: 30,
-        }}
-        whileInView={{
-          opacity: 1,
-          y: 0,
-        }}
-        viewport={{
-          once: true,
-          amount: 0.2,
-        }}
-        transition={{
-          duration: 0.6,
-        }}
-        className="mt-20 border-t border-[#2D2C3A] bg-[#3B60C5] px-8 py-8"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6 }}
+        className="border-t border-neutral-200"
       >
-
-        <div className="mx-auto flex max-w-[1180px] flex-wrap items-center justify-between gap-3 font-sans text-xs">
-
-          <span className="text-6xl font-black text-white">
+        <div className="mx-auto flex max-w-[1180px] flex-col gap-6 px-6 py-10 md:flex-row md:items-center md:justify-between md:px-8">
+          <span className="text-xl font-semibold tracking-tight">
             flowstate
           </span>
 
-          <div className="flex flex-col gap-1 font-medium text-neutral-100">
-
+          <div className="flex flex-wrap items-center gap-5 text-xs font-medium text-neutral-500">
             <Link
               href="https://github.com/AswinM1/productive0"
               target="_blank"
+              className="transition-colors hover:text-neutral-900"
             >
-              <motion.span
-                whileHover={{
-                  x: 3,
-                }}
-              >
-                Github
-              </motion.span>
+              Github
             </Link>
 
             <Link
               href="https://x.com/whitespaceeee"
               target="_blank"
+              className="transition-colors hover:text-neutral-900"
             >
-              <motion.span
-                whileHover={{
-                  x: 3,
-                }}
-              >
-                X
-              </motion.span>
+              X
             </Link>
 
             <Link
               href="https://marketplace.visualstudio.com/items?itemName=flow-state.Flowstate-dev"
               target="_blank"
+              className="transition-colors hover:text-neutral-900"
             >
-              <motion.span
-                whileHover={{
-                  x: 3,
-                }}
-              >
-                Install extension
-              </motion.span>
+              Extension
             </Link>
 
-            <span>
-              built by Aswin
-            </span>
-
+            <span className="text-neutral-400">Built by Aswin</span>
           </div>
-
         </div>
-
       </motion.footer>
-
     </main>
   );
 }
-
-/* ================================================= */
-/* FEATURE CARD */
-/* ================================================= */
 
 function FeatureCard({
   feature,
@@ -496,345 +307,212 @@ function FeatureCard({
   index: number;
   seconds: number;
 }) {
+  const minutes = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+
+  const timeLabel = `${minutes}:${secs.toString().padStart(2, "0")}`;
 
   return (
     <motion.div
-      id={
-        feature.type === "leaderboard"
-          ? "leaderboard"
-          : undefined
-      }
-    
-      whileHover={{
-        y: -6,
-        scale: 1.015,
+      id={feature.type === "leaderboard" ? "leaderboard" : undefined}
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{
+        delay: index * 0.05,
+        duration: 0.4,
+        ease: [0.22, 1, 0.36, 1],
       }}
-      className={`relative flex min-h-[150px] flex-col justify-center rounded-lg border border-[#f6f2f3] bg-[#3B60C5] p-[26px] text-white ${feature.span}`}
+      className={`relative flex min-h-[150px] flex-col justify-center rounded-lg border border-neutral-200 bg-white p-6 transition-colors hover:bg-neutral-50 ${feature.span}`}
     >
+      <div className="justify-start text-[12px] mb-4 font-medium uppercase tracking-wide text-neutral-400">
+        {feature.type}
+      </div>
 
-      {/* Card label */}
-
-      <span className="absolute left-[26px] top-5 font-sans text-[11.5px] text-white">
-        {feature.type.replace("-", " ")}
-      </span>
-
-      {/* ================================================= */}
-      {/* TIMER */}
-      {/* ================================================= */}
-
+      {/* Timer */}
       {feature.type === "timer" && (
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col h-full items-center justify-center">
+          <span className="mb-4 text-4xl font-semibold leading-none tracking-tight tabular-nums">
+            {timeLabel}
+          </span>
 
-          <motion.div
-            initial={{
-              opacity: 0,
-              scale: 0.8,
-            }}
-            whileInView={{
-              opacity: 1,
-              scale: 1,
-            }}
-            viewport={{
-              once: true,
-            }}
-            transition={{
-              duration: 0.6,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="mb-4 font-sans  text-[52px] font-bold leading-none text-white"
-          >
+          <div className="mb-5 h-1 w-24 overflow-hidden rounded-full bg-neutral-100">
+            <motion.div
+              initial={{ width: "0%" }}
+              whileInView={{ width: "70%" }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 0.8,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="h-full rounded-full bg-blue-600"
+            />
+          </div>
 
-           
-             
-             <div className="scale-80  rotate-12 "> <Pomodoro></Pomodoro></div>
-            
+          <h3 className="mb-1 text-sm font-semibold">{feature.title}</h3>
 
-          </motion.div>
-
-          <h3 className="mb-2 font-sans text-[12px] font-semibold text-neutral-100">
-            {feature.title}
-          </h3>
-
-          <p className="text-sm text-neutral-400">
+          <p className="max-w-sm text-center text-xs leading-5 text-neutral-500">
             {feature.description}
           </p>
-
         </div>
       )}
 
-      {/* ================================================= */}
-      {/* STREAK */}
-      {/* ================================================= */}
-
+      {/* Streak */}
       {feature.type === "streak" && (
-        <>
-
-          <motion.div
-            initial={{
-              opacity: 0,
-              x: -15,
-            }}
-            whileInView={{
-              opacity: 1,
-              x: 0,
-            }}
-            viewport={{
-              once: true,
-            }}
-            transition={{
-              delay: 0.2,
-            }}
-            className="mt-4 flex items-center text-xl mb-3 font-semibold"
-          >
-
-            10
+        <div>
+          <div className="mb-3 flex items-center gap-2">
+            <span className="text-4xl font-semibold tracking-tight">
+              10
+            </span>
 
             <motion.div
-              animate={{
-                scale: [1, 1.15, 1],
-              }}
+              animate={{ scale: [1, 1.1, 1] }}
               transition={{
-                duration: 1.5,
+                duration: 1.8,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
             >
-              <Flame className="h-8 w-8 fill-orange-500 text-orange-500" />
+              <Flame className="h-5 w-5 fill-orange-500 text-orange-500" />
             </motion.div>
 
-            days running
+            <span className="text-sm text-neutral-500">
+              days running
+            </span>
+          </div>
 
-          </motion.div>
-
-          <p className="text-sm text-neutral-200">
+          <p className="text-xs leading-5 text-neutral-500">
             {feature.description}
           </p>
-
-        </>
-      )}
-
-    
-      {feature.type === "insights" && (
-        <motion.div
-          initial={{
-            opacity: 0,
-            y: 15,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          viewport={{
-            once: true,
-          }}
-          transition={{
-            duration: 0.5,
-          }}
-        >
-
-          <h3 className="mb-2 font-sans text-[17px] font-semibold">
-            {feature.title}
-          </h3>
-
-          <p className="text-sm text-[#9C99AC]">
-            {feature.description}
-          </p>
-
-        </motion.div>
-      )}
-
-      {/* ================================================= */}
-      {/* LEADERBOARD */}
-      {/* ================================================= */}
-
-      {feature.type === "leaderboard" && (
-        <div className=" flex flex-col gap-1.5 relative  w-full ">
-          <div className="absolute bg-linear-to-t from-neutral-500 to-transparent flex w-full bottom-0 left-0"></div>
-
-          {[
-            ["01", "priya.dev", "38.2h"],
-            ["02", "marcus_j", "34.9h"],
-            ["03", "you", "31.4h"],
-            ["04", "kenji.t", "28.7h"],
-            ["05", "ana_ruiz", "25.1h"],
-            ["06", "yll", "31.4h"],
-            ["07", "kenji.t", "28.7h"],
-            ["08", "ana_ruiz", "25.1h"],
-          ].map(([rank, name, hours], index) => (
-
-            <motion.div
-              key={rank}
-              initial={{
-                opacity: 0,
-                x: -20,
-              }}
-              whileInView={{
-                opacity: 1,
-                x: 0,
-              }}
-              viewport={{
-                once: true,
-              }}
-              transition={{
-                delay: index * 0.08,
-                duration: 0.4,
-              }}
-              className="flex items-center shadow-2xl rounded-md hover:scale-105 transition-all duration-150 bg-white shadow-2xl  px-4  border-[#2D2C3A] py-2 font-sans text-[13.5px] last:border-0"
-            >
-
-              <span className="w-5 text-black">
-                {rank}
-              </span>
-
-              <span
-                className={`ml-2 flex-1 ${
-                  name === "you"
-                    ? "font-bold text-black"
-                    : "text-black"
-                }`}
-              >
-                {name}
-              </span>
-
-              <span className="font-bold text-blue-500 ">
-                {hours}
-              </span>
-
-            </motion.div>
-
-          ))}
-
         </div>
       )}
 
-      {/* ================================================= */}
-      {/* HEATMAP */}
-      {/* ================================================= */}
-
-      {feature.type === "heatmap" && (
-        <>
-
-          <h3 className="mt-4 mb-2 font-sans text-[17px] font-semibold">
+      {/* Insights */}
+      {feature.type === "Extension based Tracking" && (
+        <div>
+          <h3 className="justify-start flex-col text-sm font-semibold">
             {feature.title}
           </h3>
 
-          <p className="text-sm text-neutral-200">
+          <p className="text-xs leading-5 text-neutral-500">
             {feature.description}
           </p>
-
-          <Heatmap />
-
-        </>
+        </div>
       )}
 
+      {/* Leaderboard */}
+      {feature.type === "leaderboard" && (
+        <div className="w-full">
+          
+
+          <div className="divide-y divide-neutral-100">
+            {[
+              ["01", "random.dev", "javascript", "1.2h"],
+              ["02", "marcus_j", "javascript", "2.9h"],
+              ["03", "you", "java", "1.4h"],
+              ["04", "kenjii.t", "python", "1h"],
+              ["05", "ana_ruiz", "python", "1h"],
+            ].map(([rank, name, language, time], i) => {
+              const isYou = name === "you";
+
+              const langDot =
+                language === "javascript"
+                  ? "bg-yellow-400"
+                  : language === "python"
+                    ? "bg-blue-400"
+                    : "bg-orange-400";
+
+              return (
+                <motion.div
+                  key={rank}
+                  initial={{ opacity: 0, x: -12 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    delay: i * 0.06,
+                    duration: 0.35,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className={`grid grid-cols-[28px_1fr_88px_52px] items-center gap-3 px-1 py-2.5 ${
+                    isYou ? "bg-blue-50" : ""
+                  }`}
+                >
+                  <span className="text-xs text-neutral-400">
+                    {rank}
+                  </span>
+
+                  <span
+                    className={`truncate text-[13px] ${
+                      isYou
+                        ? "font-semibold text-blue-700"
+                        : "text-neutral-800"
+                    }`}
+                  >
+                    {name}
+                  </span>
+
+                  <span className="flex items-center gap-1.5 text-xs text-neutral-500">
+                    <span className={`h-1.5 w-1.5 rounded-full ${langDot}`} />
+                    {language}
+                  </span>
+
+                  <span className="text-right text-xs font-medium text-neutral-500">
+                    {time}
+                  </span>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Heatmap */}
+      {feature.type === "heatmap" && (
+        <div>
+          <h3 className="mb-4 text-sm font-semibold">
+            {feature.title}
+          </h3>
+
+          <div className="grid grid-cols-12 gap-[3px]">
+            {Array.from({ length: 24}).map((_, i) => {
+              const intensity = (i * 27 + 11) % 5;
+
+              const shade =
+                intensity === 0
+                  ? "bg-neutral-100"
+                  : intensity === 1
+                    ? "bg-blue-100"
+                    : intensity === 2
+                      ? "bg-blue-300"
+                      : intensity === 3
+                        ? "bg-blue-500"
+                        : "bg-blue-600";
+
+              return (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, scale: 0.6 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    delay: i * 0.006,
+                    duration: 0.25,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className={`aspect-square  rounded-[2px] ${shade}`}
+                />
+              );
+            })}
+          </div>
+
+          <p className="mt-4 text-xs leading-5 text-neutral-500">
+            {feature.description}
+          </p>
+        </div>
+      )}
     </motion.div>
   );
 }
-
-/* ================================================= */
-/* TIMER FORMAT */
-/* ================================================= */
-
-function formatFeatureTime(value: number) {
-
-  const h = String(
-    Math.floor(value / 3600)
-  ).padStart(2, "0");
-
-  const m = String(
-    Math.floor((value % 3600) / 60)
-  ).padStart(2, "0");
-
-  const s = String(
-    value % 60
-  ).padStart(2, "0");
-
-  return `${h}:${m}:${s}`;
-}
-
-/* ================================================= */
-/* HEATMAP */
-/* ================================================= */
-
-function Heatmap() {
-
-  const cells = Array.from(
-    { length: 48 },
-    (_, i) => {
-
-      const values = [
-        0,
-        1,
-        2,
-        3,
-        1,
-        0,
-        2,
-        3,
-        1,
-        0,
-      ];
-
-      return values[i % values.length];
-    }
-  );
-
-  return (
-    <motion.div
-      initial={{
-        opacity: 0,
-        scale: 0.9,
-      }}
-      whileInView={{
-        opacity: 1,
-        scale: 1,
-      }}
-      viewport={{
-        once: true,
-      }}
-      transition={{
-        duration: 0.5,
-      }}
-      className="mt-4 grid max-w-[420px] grid-cols-12 gap-[3px] md:grid-cols-24"
-    >
-
-      {cells.map((level, index) => (
-
-        <motion.div
-          key={index}
-          initial={{
-            opacity: 0,
-            scale: 0,
-          }}
-          whileInView={{
-            opacity: 1,
-            scale: 1,
-          }}
-          viewport={{
-            once: true,
-          }}
-          transition={{
-            delay: index * 0.015,
-            duration: 0.25,
-          }}
-          className={`aspect-square rounded-[2px] hover:bg-white ${
-            level === 0
-              ? "bg-[#dfea09]"
-              : level === 1
-                ? "bg-[#020202]"
-                : level === 2
-                  ? "bg-[#1a3ff7]"
-                  : "bg-[#faf9f8]"
-          }`}
-        />
-
-      ))}
-
-    </motion.div>
-  );
-}
-
-
 
 function Step({
   number,
@@ -845,26 +523,19 @@ function Step({
   title: string;
   description: string;
 }) {
-
   return (
-    <motion.div
-    
-      
-      className="rounded-md border-t border-[#2D2C3A] bg-[#3B60C5] px-4 py-6"
-    >
-
-      <div className="mb-2.5 font-sans text-[13px] font-semibold text-white">
+    <motion.div className="border-t border-neutral-300 pt-5">
+      <div className="mb-5 text-xs font-medium text-blue-600">
         {number}
       </div>
 
-      <h4 className="mb-2 font-sans text-base font-semibold text-neutral-900">
+      <h4 className="mb-2 text-sm font-semibold text-neutral-900">
         {title}
       </h4>
 
-      <p className="text-[14.5px] text-neutral-200">
+      <p className="text-sm leading-6 text-neutral-500">
         {description}
       </p>
-
     </motion.div>
   );
 }

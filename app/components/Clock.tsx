@@ -99,102 +99,61 @@ export default function Pomodoro() {
   }
 
   return (
-    <div className="flex min-h-[500px] items-center justify-center  p-6">
-    
-      <div
-        className="
-          w-full max-w-[520px]
-          rounded-[32px]
-          border border-[#b8b5ad]
-          bg-[#d9d7d0]
-          p-7
-          shadow-[
-            10px_10px_20px_rgba(0,0,0,0.22),
-            -8px_-8px_18px_rgba(255,255,255,0.8),
-            inset_1px_1px_2px_rgba(255,255,255,0.8),
-            inset_-1px_-1px_2px_rgba(0,0,0,0.12)
-          ]
-        "
-      >
-        {/* Top label */}
+    <div className="flex min-h-[500px] items-center justify-center p-6">
+      <div className="w-full max-w-[520px] rounded-xl  bg-white p-6 md:p-7">
+        {/* Header */}
         <div className="mb-6 flex items-center justify-between">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#77746c]">
-              FLOWSTATE
-            </p>
+           
 
-            <p className="mt-1 text-[11px] font-medium text-[#99968e]">
-              FOCUS TIMER
+            <p className="mt-1 text-[11px] font-medium uppercase tracking-wider text-neutral-400">
+              Focus timer
             </p>
           </div>
 
-          {/* Small indicator */}
           <div
-            className={`
-              h-3 w-3 rounded-full
-              border border-[#aaa79f]
-              ${
-                running
-                  ? "bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.7)]"
-                  : "bg-[#aaa79f]"
-              }
-            `}
+            className={`h-2.5 w-2.5 rounded-full ${
+              running ? "bg-green-500" : "bg-neutral-300"
+            }`}
           />
         </div>
 
-        {/* Inset display */}
-        <div
-          className="
-            rounded-[22px]
-            border border-[#8e8c86]
-            bg-[#252525]
-            p-4
-            shadow-[
-              inset_5px_5px_10px_rgba(0,0,0,0.8),
-              inset_-2px_-2px_5px_rgba(255,255,255,0.08),
-              2px_2px_4px_rgba(255,255,255,0.5)
-            ]
-          "
-        >
-          <div
-            className="
-              flex h-[150px]
-              items-center justify-center
-              rounded-[14px]
-              border border-[#161616]
-              bg-[#111]
-              shadow-[inset_0_4px_12px_rgba(0,0,0,0.9)]
-            "
-          >
-            <div
-              className="
-                select-none
-                font-mono
-                text-[52px]
-                font-bold
-                tracking-[0.08em]
-                text-[#d8e7d0]
-                drop-shadow-[0_0_5px_rgba(216,231,208,0.35)]
-                sm:text-[64px]
-              "
-            >
-              {format(displayHours)}:
-              {format(displayMinutes)}:
-              {format(displaySeconds)}
-            </div>
-          </div>
-        </div>
+<div className="rounded-lg border border-neutral-200 bg-neutral-50 p-5">
+  <div className="flex h-[150px] items-center justify-center rounded-md border border-neutral-200 bg-white">
+    <div className="select-none font-mono text-[52px] font-medium tracking-tight tabular-nums text-neutral-900 sm:text-[64px]">
+      {format(displayHours)}:
+      {format(displayMinutes)}:
+      {format(displaySeconds)}
+    </div>
+  </div>
 
-        {/* Physical knobs / inputs */}
+  {/* Progress */}
+  <div className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-neutral-200">
+    <div
+      className="h-full rounded-full bg-neutral-900 transition-[width] duration-1000 ease-linear"
+      style={{
+        width: `${(timeLeft / initialTime) * 100}%`,
+      }}
+    />
+  </div>
+</div>
+
+        {/* Duration */}
         <div className="mt-7">
-          <div className="mb-3 text-xs font-bold uppercase tracking-widest text-[#77746c]">
-            Set duration
+          <div className="mb-3 flex items-center justify-between">
+            <span className="text-xs font-semibold text-neutral-900">
+              Set duration
+            </span>
+
+            <span className="text-[11px] text-neutral-400">
+              HH : MM : SS
+            </span>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr_auto] items-end gap-2">
             {/* Hours */}
-            <div className="flex-1">
-              <label className="mb-1 block text-[10px] font-bold uppercase text-[#8c8981]">
+            <div>
+              <label className="mb-1.5 block text-[10px] font-medium uppercase tracking-wide text-neutral-400">
                 Hours
               </label>
 
@@ -205,34 +164,15 @@ export default function Pomodoro() {
                 onChange={(e) =>
                   setHours(Number(e.target.value))
                 }
-                className="
-                  w-full
-                  rounded-xl
-                  border border-[#aaa79f]
-                  bg-[#d1cfc8]
-                  px-3 py-3
-                  text-center
-                  font-mono
-                  font-bold
-                  text-[#3c3a35]
-                  outline-none
-                  shadow-[
-                    inset_3px_3px_6px_rgba(0,0,0,0.16),
-                    inset_-3px_-3px_6px_rgba(255,255,255,0.7)
-                  ]
-                  focus:ring-2
-                  focus:ring-[#3B60C5]/40
-                "
+                className="w-full rounded-md border border-neutral-200 bg-white px-3 py-2.5 text-center font-mono text-sm font-medium text-neutral-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/10"
               />
             </div>
 
-            <span className="mt-5 font-bold text-[#85827a]">
-              :
-            </span>
+            <span className="pb-2.5 text-neutral-300">:</span>
 
             {/* Minutes */}
-            <div className="flex-1">
-              <label className="mb-1 block text-[10px] font-bold uppercase text-[#8c8981]">
+            <div>
+              <label className="mb-1.5 block text-[10px] font-medium uppercase tracking-wide text-neutral-400">
                 Minutes
               </label>
 
@@ -244,31 +184,15 @@ export default function Pomodoro() {
                 onChange={(e) =>
                   setMinutes(Number(e.target.value))
                 }
-                className="
-                  w-full
-                  rounded-xl
-                  border border-[#aaa79f]
-                  bg-[#d1cfc8]
-                  px-3 py-3
-                  text-center
-                  font-mono
-                  font-bold
-                  text-[#3c3a35]
-                  outline-none
-                  shadow-[inset_3px_3px_6px_rgba(0,0,0,0.16),inset_-3px_-3px_6px_rgba(255,255,255,0.7)]
-                  focus:ring-2
-                  focus:ring-[#3B60C5]/40
-                "
+                className="w-full rounded-md border border-neutral-200 bg-white px-3 py-2.5 text-center font-mono text-sm font-medium text-neutral-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/10"
               />
             </div>
 
-            <span className="mt-5 font-bold text-[#85827a]">
-              :
-            </span>
+            <span className="pb-2.5 text-neutral-300">:</span>
 
             {/* Seconds */}
-            <div className="flex-1">
-              <label className="mb-1 block text-[10px] font-bold uppercase text-[#8c8981]">
+            <div>
+              <label className="mb-1.5 block text-[10px] font-medium uppercase tracking-wide text-neutral-400">
                 Seconds
               </label>
 
@@ -280,116 +204,49 @@ export default function Pomodoro() {
                 onChange={(e) =>
                   setSeconds(Number(e.target.value))
                 }
-                className="
-                  w-full
-                  rounded-xl
-                  border border-[#aaa79f]
-                  bg-[#d1cfc8]
-                  px-3 py-3
-                  text-center
-                  font-mono
-                  font-bold
-                  text-[#3c3a35]
-                  outline-none
-                  shadow-[inset_3px_3px_6px_rgba(0,0,0,0.16),inset_-3px_-3px_6px_rgba(255,255,255,0.7)]
-                  focus:ring-2
-                  focus:ring-[#3B60C5]/40
-                "
+                className="w-full rounded-md border border-neutral-200 bg-white px-3 py-2.5 text-center font-mono text-sm font-medium text-neutral-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/10"
               />
             </div>
 
-            {/* Set button */}
+            {/* Set */}
             <button
               onClick={setTimer}
-              className="
-                mt-5
-                rounded-xl
-                border border-[#77746e]
-                bg-[#c5c2ba]
-                px-4 py-3
-                text-sm
-                font-bold
-                text-[#383631]
-                shadow-[
-                  3px_3px_6px_rgba(0,0,0,0.2),
-                  -2px_-2px_5px_rgba(255,255,255,0.7),
-                  inset_1px_1px_1px_rgba(255,255,255,0.7)
-                ]
-                transition-all
-                hover:bg-[#cecbc3]
-                active:translate-y-[2px]
-                active:shadow-[inset_2px_2px_5px_rgba(0,0,0,0.25)]
-              "
+              className="rounded-md border border-neutral-200 bg-neutral-50 px-4 py-2.5 text-sm font-medium text-neutral-900 transition-colors hover:bg-neutral-100 active:translate-y-px"
             >
               Set
             </button>
           </div>
         </div>
 
-        {/* Main controls */}
-        <div className="mt-8 flex items-center justify-center gap-5">
-          {/* Start / Pause */}
+        {/* Controls */}
+        <div className="mt-7 flex gap-3">
           <button
             onClick={() =>
               setRunning((prev) => !prev)
             }
             disabled={timeLeft === 0}
-            className="
-              min-w-[150px]
-              rounded-2xl
-              border border-[#28458e]
-              bg-black
-              px-7 py-4
-              font-bold
-              text-white
-              shadow-[
-                5px_5px_9px_rgba(0,0,0,0.25),
-                -3px_-3px_7px_rgba(255,255,255,0.55),
-                inset_1px_1px_1px_rgba(255,255,255,0.25)
-              ]
-              transition-all
-              hover:bg-neutral-900
-              active:translate-y-[3px]
-              active:shadow-[
-                inset_3px_3px_7px_rgba(0,0,0,0.3),
-                1px_1px_2px_rgba(255,255,255,0.4)
-              ]
-              disabled:cursor-not-allowed
-              disabled:opacity-50
-            "
+            className="flex-1 rounded-md bg-neutral-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-neutral-700 disabled:cursor-not-allowed disabled:opacity-40"
           >
             {running ? "Pause" : "Start"}
           </button>
 
-          {/* Reset */}
           <button
             onClick={reset}
-            className="
-              rounded-2xl
-              border border-[#99968e]
-              bg-[#c8c5bd]
-              px-7 py-4
-              font-bold
-              text-[#45423c]
-              shadow-[
-                5px_5px_9px_rgba(0,0,0,0.2),
-                -3px_-3px_7px_rgba(255,255,255,0.7),
-                inset_1px_1px_1px_rgba(255,255,255,0.8)
-              ]
-              transition-all
-              hover:bg-[#d0cdc5]
-              active:translate-y-[3px]
-              active:shadow-[inset_3px_3px_7px_rgba(0,0,0,0.25)]
-            "
+            className="rounded-md border border-neutral-200 bg-white px-6 py-3 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-50"
           >
             Reset
           </button>
         </div>
 
-        {/* Bottom screws */}
-        <div className="mt-7 flex justify-between px-2">
-          <div className="h-2 w-2 rounded-full bg-[#aaa79f] shadow-[inset_1px_1px_2px_rgba(0,0,0,0.4)]" />
-          <div className="h-2 w-2 rounded-full bg-[#aaa79f] shadow-[inset_1px_1px_2px_rgba(0,0,0,0.4)]" />
+        {/* Status */}
+        <div className="mt-5 flex items-center justify-between border-t border-neutral-100 pt-4">
+          <span className="text-[11px] text-neutral-400">
+            {running ? "Timer is running" : "Ready to focus"}
+          </span>
+
+          <span className="text-[11px] font-medium text-neutral-400">
+            {Math.ceil(timeLeft / 60)} min
+          </span>
         </div>
       </div>
     </div>

@@ -44,6 +44,9 @@ export async function POST(req: Request) {
 
     console.log("USER ID:", user.id);
 
+
+
+
     const pomodoro = await prisma.pomodoro.create({
       data: {
         userId: user.id,
@@ -57,7 +60,10 @@ export async function POST(req: Request) {
     return NextResponse.json(pomodoro, {
       status: 201,
     });
-  } catch (error) {
+
+   
+  } 
+  catch (error) {
     console.error("========== POMODORO ERROR ==========");
     console.error(error);
     console.error("====================================");
@@ -71,5 +77,8 @@ export async function POST(req: Request) {
       },
       { status: 500 }
     );
+
+
   }
+  
 }

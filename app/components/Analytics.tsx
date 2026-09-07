@@ -51,7 +51,19 @@ export default function Page() {
         return res.json();
       })
       .then((result) => {
-        setData(result);
+        /*
+         * API is assumed to return duration in seconds.
+         * Convert seconds -> minutes here so the rest
+         * of the page consistently works with minutes.
+         */
+        const convertedData: AnalyticsData[] = result.map(
+          (item: { date: string; minutes: number }) => ({
+            date: item.date,
+            minutes: Math.round(item.minutes / 60),
+          })
+        );
+
+        setData(convertedData);
       })
       .catch((error) => {
         console.error("Analytics error:", error);
@@ -80,7 +92,7 @@ export default function Page() {
   }, [data]);
 
   /*
-   * Generate the last 365 days
+   * Generate the last 365 days.
    */
   const heatmapDays = useMemo(() => {
     const days: {
@@ -107,33 +119,32 @@ export default function Page() {
   }, [focusByDate]);
 
   /*
-   * Determine heatmap intensity
+   * Heatmap intensity.
    */
   const getHeatmapClass = (minutes: number) => {
     if (minutes === 0) {
-      return "bg-muted";
+      return "bg-neutral-100";
     }
 
     if (minutes < 30) {
-      return "bg-[#3B60C5] /25";
+      return "bg-blue-200";
     }
 
     if (minutes < 60) {
-      return "bg-[#3B60C5]/40";
+      return "bg-blue-300";
     }
 
     if (minutes < 120) {
-      return "bg-[#3B60C5] /60";
+      return "bg-blue-500";
     }
 
-    return "bg-[#3B60C5] ";
+    return "bg-blue-600";
   };
 
   return (
-    <div className="flex flex-1 flex-col">
-      <div className="@container/main flex flex-1 flex-col gap-2">
-        <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-
+    <div className="flex flex-1 flex-col bg-white">
+      <div className="@container/main flex flex-1 flex-col">
+        <div className="flex flex-col gap-6 py-6">
           {/* =========================
               STAT CARDS
           ========================== */}
@@ -145,43 +156,54 @@ export default function Page() {
           ========================== */}
 
           <div className="px-4 lg:px-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Time tracked</CardTitle>
+            <Card className="border-neutral-200 shadow-none">
+              <CardHeader className="border-b border-neutral-100">
+                <CardTitle className="text-base font-semibold">
+                  Time tracked
+                </CardTitle>
 
                 <CardDescription>
                   Daily focus time
                 </CardDescription>
               </CardHeader>
 
-              <CardContent>
+              <CardContent className="pt-6">
                 {loading ? (
-                  <div className="flex h-[400px] items-center justify-center">
-                    <p className="text-sm text-muted-foreground">
+                  <div className="flex h-[360px] items-center justify-center">
+                    <p className="text-sm text-neutral-400">
                       Loading analytics...
+                    </p>
+                  </div>
+                ) : data.length === 0 ? (
+                  <div className="flex h-[360px] items-center justify-center">
+                    <p className="text-sm text-neutral-400">
+                      No focus activity yet.
                     </p>
                   </div>
                 ) : (
                   <ChartContainer
                     config={chartConfig}
-                    className="h-[400px] w-full"
+                    className="h-[360px] w-full"
                   >
                     <BarChart
                       data={data}
                       margin={{
-                        left: 12,
-                        right: 12,
+                        left: 8,
+                        right: 8,
                         top: 12,
                         bottom: 12,
                       }}
                     >
-                      <CartesianGrid vertical={false} />
+                      <CartesianGrid
+                        vertical={false}
+                        className="stroke-neutral-100"
+                      />
 
                       <XAxis
                         dataKey="date"
                         tickLine={false}
                         axisLine={false}
-                        tickMargin={8}
+                        tickMargin={10}
                         tickFormatter={(value) => {
                           const date = new Date(value);
 
@@ -193,15 +215,15 @@ export default function Page() {
                             }
                           );
                         }}
+                        className="text-xs"
                       />
 
                       <YAxis
                         tickLine={false}
                         axisLine={false}
-                        tickMargin={8}
-                        tickFormatter={(value) =>
-                          `${value}m`
-                        }
+                        tickMargin={10}
+                        tickFormatter={(value) => `${value}m`}
+                        className="text-xs"
                       />
 
                       <ChartTooltip
@@ -212,8 +234,8 @@ export default function Page() {
                       <Bar
                         dataKey="minutes"
                         fill="#3B60C5"
-                        radius={4}
-                        barSize={30}
+                        radius={3}
+                        barSize={26}
                       />
                     </BarChart>
                   </ChartContainer>
@@ -227,21 +249,22 @@ export default function Page() {
           ========================== */}
 
           <div className="px-4 lg:px-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Focus activity</CardTitle>
+            <Card className="border-neutral-200 shadow-none">
+              <CardHeader className="border-b border-neutral-100">
+                <CardTitle className="text-base font-semibold">
+                  Focus activity
+                </CardTitle>
 
                 <CardDescription>
                   Your focus activity over the last year
                 </CardDescription>
               </CardHeader>
 
-              <CardContent>
+              <CardContent className="pt-6">
                 <div className="w-full overflow-x-auto">
                   <div className="min-w-[850px]">
-
                     {/* Month labels */}
-                    <div className="mb-2 ml-8 flex justify-between text-xs text-muted-foreground">
+                    <div className="mb-3 ml-8 flex justify-between text-[11px] text-neutral-400">
                       <span>Jan</span>
                       <span>Feb</span>
                       <span>Mar</span>
@@ -257,21 +280,20 @@ export default function Page() {
                     </div>
 
                     <div className="flex gap-2">
-
                       {/* Weekday labels */}
-                      <div className="flex w-6 flex-col justify-between py-1 text-[10px] text-muted-foreground">
+                      <div className="flex w-6 flex-col justify-between py-0.5 text-[10px] text-neutral-400">
                         <span>Mon</span>
                         <span>Wed</span>
                         <span>Fri</span>
                       </div>
 
                       {/* Heatmap */}
-                      <div className="grid grid-flow-col grid-rows-7 gap-1">
+                      <div className="grid grid-flow-col grid-rows-7 gap-[3px]">
                         {heatmapDays.map((day) => (
                           <div
                             key={day.date}
                             title={`${day.date}: ${day.minutes} minutes`}
-                            className={`h-3 w-3 rounded-[3px] ${getHeatmapClass(
+                            className={`h-3 w-3 rounded-[2px] ${getHeatmapClass(
                               day.minutes
                             )}`}
                           />
@@ -280,28 +302,22 @@ export default function Page() {
                     </div>
 
                     {/* Legend */}
-                    <div className="mt-4 flex items-center justify-end gap-2 text-xs text-muted-foreground">
-                      <span>Less</span>
+                    <div className="mt-5 flex items-center justify-end gap-1.5 text-[11px] text-neutral-400">
+                      <span className="mr-1">Less</span>
 
-                      <div className="h-3 w-3 rounded-[3px] bg-muted" />
+                      <div className="h-3 w-3 rounded-[2px] bg-neutral-100" />
+                      <div className="h-3 w-3 rounded-[2px] bg-blue-200" />
+                      <div className="h-3 w-3 rounded-[2px] bg-blue-300" />
+                      <div className="h-3 w-3 rounded-[2px] bg-blue-500" />
+                      <div className="h-3 w-3 rounded-[2px] bg-blue-600" />
 
-                      <div className="h-3 w-3 rounded-[3px] bg-[#3B60C5]/20" />
-
-                      <div className="h-3 w-3 rounded-[3px] bg-[#3B60C5]/40 " />
-
-                      <div className="h-3 w-3 rounded-[3px] bg-[#3B60C5]/60 " />
-
-                      <div className="h-3 w-3 rounded-[3px] bg-[#3B60C5]" />
-
-                      <span>More</span>
+                      <span className="ml-1">More</span>
                     </div>
-
                   </div>
                 </div>
               </CardContent>
             </Card>
           </div>
-
         </div>
       </div>
     </div>
