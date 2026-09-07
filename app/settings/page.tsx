@@ -123,19 +123,8 @@ export default function TokenPage() {
     }, 2000);
   }
 
-  /*
-   * Start editing key
-   */
+ 
 
-
-  /*
-   * Save key name
-   */
-
-
-  /*
-   * Revoke API key
-   */
   async function revokeKey(id: string) {
     const confirmed = window.confirm(
       "Are you sure you want to revoke this API key?"
@@ -200,6 +189,7 @@ export default function TokenPage() {
                   <CardDescription className="mt-1">
                     Connect your VS Code extension to Flowstate.
                   </CardDescription>
+                </div>
                 </div>
 
               
