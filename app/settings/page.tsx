@@ -25,7 +25,7 @@ import { Input } from "@/components/ui/input";
 
 type ApiKey = {
   id: string;
-  name: string;
+  tokenPreview:string;
   createdAt: string;
   lastUsedAt?: string | null;
 };
@@ -39,8 +39,7 @@ export default function TokenPage() {
   const [keys, setKeys] = useState<ApiKey[]>([]);
   const [loadingKeys, setLoadingKeys] = useState(true);
 
-  const [editingKey, setEditingKey] = useState<string | null>(null);
-  const [editName, setEditName] = useState("");
+
 
   /*
    * Load existing API keys
@@ -127,49 +126,12 @@ export default function TokenPage() {
   /*
    * Start editing key
    */
-  function startEditing(key: ApiKey) {
-    setEditingKey(key.id);
-    setEditName(key.name);
-  }
+
 
   /*
    * Save key name
    */
-  async function saveKeyName(id: string) {
-    if (!editName.trim()) return;
 
-    try {
-      const response = await fetch(`/api/tokens/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: editName.trim(),
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to update API key");
-      }
-
-      setKeys((current) =>
-        current.map((key) =>
-          key.id === id
-            ? {
-                ...key,
-                name: editName.trim(),
-              }
-            : key
-        )
-      );
-
-      setEditingKey(null);
-    } catch (error) {
-      console.error(error);
-      alert("Failed to update API key");
-    }
-  }
 
   /*
    * Revoke API key
@@ -240,11 +202,7 @@ export default function TokenPage() {
                   </CardDescription>
                 </div>
 
-                <div className="flex items-center gap-2 text-xs text-neutral-500">
-                  <span className="h-2 w-2 rounded-full bg-green-500" />
-                  Available
-                </div>
-              </div>
+              
             </CardHeader>
 
             <CardContent className="pt-6">
@@ -414,88 +372,40 @@ export default function TokenPage() {
                 <div className="divide-y divide-neutral-100">
                   {keys.map((key) => (
                     <div
-                      key={key.id}
-                      className="flex flex-col gap-4 px-6 py-4 sm:flex-row sm:items-center sm:justify-between"
-                    >
-                      <div className="min-w-0">
-                        {editingKey === key.id ? (
-                          <div className="flex max-w-sm gap-2">
-                            <Input
-                              value={editName}
-                              onChange={(e) =>
-                                setEditName(e.target.value)
-                              }
-                              autoFocus
-                              className="h-8 text-sm"
-                            />
+  key={key.id}
+  className="flex flex-col gap-4 px-6 py-4 sm:flex-row sm:items-center sm:justify-between"
+>
+  <div className="min-w-0">
+    <div className="flex items-center gap-2">
+      <p className="truncate font-mono text-sm font-medium text-neutral-900">
+        {key.tokenPreview}
+      </p>
 
-                            <Button
-                              size="sm"
-                              onClick={() =>
-                                saveKeyName(key.id)
-                              }
-                            >
-                              Save
-                            </Button>
+      <span className="rounded-full bg-green-50 px-2 py-0.5 text-[10px] font-medium text-green-700">
+        Active
+      </span>
+    </div>
 
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              onClick={() =>
-                                setEditingKey(null)
-                              }
-                            >
-                              Cancel
-                            </Button>
-                          </div>
-                        ) : (
-                          <>
-                            <div className="flex items-center gap-2">
-                              <p className="truncate text-sm font-medium text-neutral-900">
-                                {key.name}
-                              </p>
+    <div className="mt-1 flex gap-4 text-xs text-neutral-400">
+      <span>
+        Created {formatDate(key.createdAt)}
+      </span>
 
-                              <span className="rounded-full bg-green-50 px-2 py-0.5 text-[10px] font-medium text-green-700">
-                                Active
-                              </span>
-                            </div>
+      <span>
+        Last used {formatDate(key.lastUsedAt)}
+      </span>
+    </div>
+  </div>
 
-                            <div className="mt-1 flex gap-4 text-xs text-neutral-400">
-                              <span>
-                                Created{" "}
-                                {formatDate(key.createdAt)}
-                              </span>
-
-                              <span>
-                                Last used{" "}
-                                {formatDate(key.lastUsedAt)}
-                              </span>
-                            </div>
-                          </>
-                        )}
-                      </div>
-
-                      {editingKey !== key.id && (
-                        <div className="flex items-center gap-1">
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => startEditing(key)}
-                          >
-                            Edit
-                          </Button>
-
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => revokeKey(key.id)}
-                            className="text-neutral-400 hover:text-red-600"
-                          >
-                            <Trash2 className="size-4" />
-                          </Button>
-                        </div>
-                      )}
-                    </div>
+  <Button
+    variant="ghost"
+    size="icon"
+    onClick={() => revokeKey(key.id)}
+    className="text-neutral-400 hover:text-red-600"
+  >
+    <Trash2 className="size-4" />
+  </Button>
+</div>
                   ))}
                 </div>
               )}
