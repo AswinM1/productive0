@@ -7,7 +7,6 @@ import {
   Eye,
   EyeOff,
   Key,
-  MoreHorizontal,
   Plus,
   RefreshCw,
   Trash2,
@@ -25,7 +24,7 @@ import { Input } from "@/components/ui/input";
 
 type ApiKey = {
   id: string;
-  tokenPreview:string;
+  tokenPreview: string;
   createdAt: string;
   lastUsedAt?: string | null;
 };
@@ -34,39 +33,35 @@ export default function TokenPage() {
   const [token, setToken] = useState("");
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [showToken, setShowToken] = useState(false);
+  const [showToken, setShowToken] = useState(true);
 
   const [keys, setKeys] = useState<ApiKey[]>([]);
   const [loadingKeys, setLoadingKeys] = useState(true);
 
-
-
-  /*
-   * Load existing API keys
-   */
+  // Load API keys
   useEffect(() => {
-    fetch("/api/tokens")
-      .then((res) => {
-        if (!res.ok) {
+    async function loadKeys() {
+      try {
+        const response = await fetch("/api/tokens");
+
+        if (!response.ok) {
           throw new Error("Failed to fetch API keys");
         }
 
-        return res.json();
-      })
-      .then((data) => {
+        const data: ApiKey[] = await response.json();
+
         setKeys(data);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Failed to load API keys:", error);
-      })
-      .finally(() => {
+      } finally {
         setLoadingKeys(false);
-      });
+      }
+    }
+
+    loadKeys();
   }, []);
 
-  /*
-   * Generate token
-   */
+  // Generate API token
   async function generateToken() {
     setLoading(true);
     setCopied(false);
@@ -75,12 +70,6 @@ export default function TokenPage() {
     try {
       const response = await fetch("/api/tokens", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: "VS Code",
-        }),
       });
 
       if (!response.ok) {
@@ -91,43 +80,43 @@ export default function TokenPage() {
 
       setToken(data.token);
 
-      /*
-       * Refresh API key list
-       */
+      // Refresh API key list
       const keysResponse = await fetch("/api/tokens");
 
       if (keysResponse.ok) {
-        const keysData = await keysResponse.json();
+        const keysData: ApiKey[] = await keysResponse.json();
+
         setKeys(keysData);
       }
     } catch (error) {
-      console.error(error);
+      console.error("Failed to generate token:", error);
       alert("Failed to generate token");
     } finally {
       setLoading(false);
     }
   }
 
-  /*
-   * Copy token
-   */
+  // Copy token
   async function copyToken() {
     if (!token) return;
 
-    await navigator.clipboard.writeText(token);
+    try {
+      await navigator.clipboard.writeText(token);
 
-    setCopied(true);
+      setCopied(true);
 
-    setTimeout(() => {
-      setCopied(false);
-    }, 2000);
+      setTimeout(() => {
+        setCopied(false);
+      }, 2000);
+    } catch (error) {
+      console.error("Failed to copy token:", error);
+    }
   }
 
- 
-
+  // Delete API key
   async function revokeKey(id: string) {
     const confirmed = window.confirm(
-      "Are you sure you want to revoke this API key?"
+      "Are you sure you want to delete this API key?"
     );
 
     if (!confirmed) return;
@@ -138,20 +127,28 @@ export default function TokenPage() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to revoke API key");
+        throw new Error("Failed to delete API key");
       }
 
+      // Remove deleted key from UI immediately
       setKeys((current) =>
         current.filter((key) => key.id !== id)
       );
+
+      // If the deleted key was the newly generated one,
+      // clear the displayed token.
+      setToken("");
+      setShowToken(false);
     } catch (error) {
-      console.error(error);
-      alert("Failed to revoke API key");
+      console.error("Failed to delete API key:", error);
+      alert("Failed to delete API key");
     }
   }
 
   function formatDate(date?: string | null) {
-    if (!date) return "Never";
+    if (!date) {
+      return "Never";
+    }
 
     return new Date(date).toLocaleDateString("en-US", {
       month: "short",
@@ -190,9 +187,12 @@ export default function TokenPage() {
                     Connect your VS Code extension to Flowstate.
                   </CardDescription>
                 </div>
-                </div>
 
-              
+                <div className="flex items-center gap-2 text-xs text-neutral-500">
+                  <span className="h-2 w-2 rounded-full bg-green-500" />
+                  Available
+                </div>
+              </div>
             </CardHeader>
 
             <CardContent className="pt-6">
@@ -232,7 +232,7 @@ export default function TokenPage() {
                   {/* Newly generated token */}
                   <div>
                     <div className="mb-2 flex items-center justify-between">
-                      <p className="text-sm font-medium">
+                      <p className="text-sm font-medium text-neutral-900">
                         Your new API key
                       </p>
 
@@ -362,40 +362,41 @@ export default function TokenPage() {
                 <div className="divide-y divide-neutral-100">
                   {keys.map((key) => (
                     <div
-  key={key.id}
-  className="flex flex-col gap-4 px-6 py-4 sm:flex-row sm:items-center sm:justify-between"
->
-  <div className="min-w-0">
-    <div className="flex items-center gap-2">
-      <p className="truncate font-mono text-sm font-medium text-neutral-900">
-        {key.tokenPreview}
-      </p>
+                      key={key.id}
+                      className="flex flex-col gap-4 px-6 py-4 sm:flex-row sm:items-center sm:justify-between"
+                    >
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2">
+                          <p className="truncate font-mono text-sm font-medium text-neutral-900">
+                            {key.tokenPreview}
+                          </p>
 
-      <span className="rounded-full bg-green-50 px-2 py-0.5 text-[10px] font-medium text-green-700">
-        Active
-      </span>
-    </div>
+                          <span className="rounded-full bg-green-50 px-2 py-0.5 text-[10px] font-medium text-green-700">
+                            Active
+                          </span>
+                        </div>
 
-    <div className="mt-1 flex gap-4 text-xs text-neutral-400">
-      <span>
-        Created {formatDate(key.createdAt)}
-      </span>
+                        <div className="mt-1 flex gap-4 text-xs text-neutral-400">
+                          <span>
+                            Created {formatDate(key.createdAt)}
+                          </span>
 
-      <span>
-        Last used {formatDate(key.lastUsedAt)}
-      </span>
-    </div>
-  </div>
+                          <span>
+                            Last used{" "}
+                            {formatDate(key.lastUsedAt)}
+                          </span>
+                        </div>
+                      </div>
 
-  <Button
-    variant="ghost"
-    size="icon"
-    onClick={() => revokeKey(key.id)}
-    className="text-neutral-400 hover:text-red-600"
-  >
-    <Trash2 className="size-4" />
-  </Button>
-</div>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => revokeKey(key.id)}
+                        className="text-neutral-400 hover:text-red-600"
+                      >
+                        <Trash2 className="size-4" />
+                      </Button>
+                    </div>
                   ))}
                 </div>
               )}
